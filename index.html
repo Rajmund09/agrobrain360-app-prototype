@@ -1922,6 +1922,233 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ─── LIVESTOCK / MACHINERY / RESIDUE SHARED ─── */
+#s-livestock-form, #s-machinery-form, #s-residue-form,
+#s-livestock-result, #s-machinery-result, #s-residue-result {
+  background: var(--bg);
+}
+
+/* Symptom checkbox chips */
+.symptom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.symptom-chip {
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: var(--r-md);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--t2);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.symptom-chip.active {
+  background: #FFF8E1;
+  border-color: var(--warning);
+  color: #7B4000;
+}
+.symptom-chip:hover { border-color: var(--warning); }
+.symptom-chip .sc-check {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; flex-shrink: 0;
+}
+.symptom-chip.active .sc-check { background: var(--warning); border-color: var(--warning); color: white; }
+
+/* Machine type chips */
+.machine-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.machine-chip {
+  padding: 10px 16px;
+  background: var(--bg);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t2);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; gap: 6px;
+}
+.machine-chip.active {
+  background: #E8EAF6;
+  border-color: #3949AB;
+  color: #1A237E;
+}
+.machine-chip:hover { border-color: #5C6BC0; }
+
+/* Residue method chips */
+.method-chip {
+  width: 100%;
+  padding: 14px 16px;
+  background: white;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: var(--r-lg);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t2);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--sh1);
+}
+.method-chip .mc-icon {
+  width: 38px; height: 38px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.method-chip-info { flex: 1; }
+.method-chip-title { font-size: 13px; font-weight: 700; color: var(--t1); }
+.method-chip-sub { font-size: 11px; color: var(--t2); margin-top: 1px; }
+.method-chip.active {
+  background: var(--g-light);
+  border-color: var(--g1);
+}
+.method-chip.active .method-chip-title { color: var(--g1); }
+
+/* Result hero variants */
+.result-hero-amber {
+  background: linear-gradient(160deg, #E65100, #FF9800);
+}
+.result-hero-indigo {
+  background: linear-gradient(160deg, #1A237E, #3949AB);
+}
+.result-hero-teal {
+  background: linear-gradient(160deg, #004D40, #00796B);
+}
+
+/* Severity badge variants */
+.sev-indicator.amber { background: rgba(255,152,0,0.15); }
+.sev-label.amber { color: #E65100; }
+.rmc-severity.amber { background: linear-gradient(135deg,#FFF8E1,#FFE0B2); }
+
+.sev-indicator.indigo { background: rgba(63,81,181,0.12); }
+.sev-label.indigo { color: #3949AB; }
+.rmc-severity.indigo { background: linear-gradient(135deg,#E8EAF6,#C5CAE9); }
+
+.sev-indicator.teal { background: rgba(0,150,136,0.12); }
+.sev-label.teal { color: #00796B; }
+.rmc-severity.teal { background: linear-gradient(135deg,#E0F2F1,#B2DFDB); }
+
+/* Earnings card for residue */
+.earnings-card {
+  background: linear-gradient(135deg, var(--gold-bg), #FFF0D6);
+  border: 1.5px solid rgba(212,163,115,0.3);
+  border-radius: var(--r-xl);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.earn-icon {
+  width: 52px; height: 52px;
+  background: rgba(212,163,115,0.2);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; flex-shrink: 0;
+}
+.earn-label { font-size: 11px; font-weight: 700; color: var(--gold-dark); letter-spacing: 0.5px; text-transform: uppercase; }
+.earn-amount { font-family: var(--font-h); font-size: 26px; font-weight: 800; color: var(--gold-dark); letter-spacing: -0.5px; }
+.earn-sub { font-size: 12px; color: #A07040; margin-top: 2px; }
+
+/* Repair steps for machinery */
+.repair-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #E8EAF6;
+  border-radius: var(--r-sm);
+  border-left: 3px solid #3949AB;
+  margin-bottom: 8px;
+}
+.repair-num {
+  width: 22px; height: 22px;
+  background: #3949AB;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: white; flex-shrink: 0;
+}
+
+/* Animal vital chips */
+.vital-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.vital-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.vital-label { font-size: 10px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.5px; }
+.vital-val { font-family: var(--font-h); font-size: 15px; font-weight: 700; color: var(--t1); }
+
+/* Photo upload small variant */
+.photo-upload-mini {
+  background: white;
+  border: 2px dashed rgba(63,81,181,0.25);
+  border-radius: var(--r-xl);
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.photo-upload-mini:hover { border-color: #3949AB; background: #F0F1FF; }
+.photo-upload-mini:active { transform: scale(0.98); }
+.pum-icon { font-size: 32px; }
+.pum-title { font-size: 14px; font-weight: 700; color: var(--t1); }
+.pum-sub { font-size: 12px; color: var(--t2); }
+
+/* Part condition chips */
+.condition-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.cond-chip {
+  padding: 10px 6px;
+  background: var(--bg);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: var(--r-sm);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--t2);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.cond-chip.active { background: #E8EAF6; border-color: #3949AB; color: #1A237E; }
+
+/* Residue volume slider */
+.vol-display {
+  background: linear-gradient(135deg, #E0F2F1, #B2DFDB);
+  border-radius: var(--r-xl);
+  padding: 16px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+.vol-num { font-family: var(--font-h); font-size: 36px; font-weight: 800; color: #00695C; }
+.vol-unit { font-size: 13px; color: #00897B; font-weight: 500; }
+
 /* ─── TOAST ─── */
 .toast {
   position: absolute;
@@ -1990,6 +2217,31 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
     <div class="nav-btn" onclick="goTo('s-nearby', this)">
       <span class="nav-btn-label">📍 Nearby</span>
       <span class="nav-btn-sub">Services map</span>
+    </div>
+    <div class="nav-title" style="margin-top:8px">New Features</div>
+    <div class="nav-btn" onclick="goTo('s-livestock-form', this)">
+      <span class="nav-btn-label">🐄 Livestock</span>
+      <span class="nav-btn-sub">Health & diagnosis</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-livestock-result', this)">
+      <span class="nav-btn-label">✓ Livestock Result</span>
+      <span class="nav-btn-sub">Treatment plan</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-machinery-form', this)">
+      <span class="nav-btn-label">🔧 Machinery</span>
+      <span class="nav-btn-sub">Issue detection</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-machinery-result', this)">
+      <span class="nav-btn-label">✓ Machinery Result</span>
+      <span class="nav-btn-sub">Repair guide</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-residue-form', this)">
+      <span class="nav-btn-label">♻️ Residue</span>
+      <span class="nav-btn-sub">Management plan</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-residue-result', this)">
+      <span class="nav-btn-label">✓ Residue Result</span>
+      <span class="nav-btn-sub">Earnings & steps</span>
     </div>
   </div>
 
@@ -2088,6 +2340,32 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
                   <div class="fc-title">Nearby Services</div>
                   <div class="fc-desc">Shops, vets & mechanics near you</div>
                   <div class="fc-arrow">›</div>
+                </div>
+              </div>
+
+              <div class="section-title" style="margin-top:4px">Livestock, Machinery & Residue</div>
+              <div class="features-grid stagger-in">
+                <div class="feature-card" onclick="goTo('s-livestock-form')">
+                  <div class="fc-icon-wrap" style="background:linear-gradient(135deg,#FFF8E1,#FFECB3)">🐄</div>
+                  <div class="fc-title">Livestock Health</div>
+                  <div class="fc-desc">Detect animal diseases & get treatment</div>
+                  <div class="fc-arrow">›</div>
+                </div>
+                <div class="feature-card" onclick="goTo('s-machinery-form')">
+                  <div class="fc-icon-wrap" style="background:linear-gradient(135deg,#E8EAF6,#C5CAE9)">🔧</div>
+                  <div class="fc-title">Machinery Diagnosis</div>
+                  <div class="fc-desc">AI repair guide for farm equipment</div>
+                  <div class="fc-arrow">›</div>
+                </div>
+                <div class="feature-card home-full-card" onclick="goTo('s-residue-form')" style="grid-column:span 2">
+                  <div style="display:flex;align-items:center;gap:14px">
+                    <div class="fc-icon-wrap" style="background:linear-gradient(135deg,#E0F2F1,#B2DFDB);width:52px;height:52px;flex-shrink:0">♻️</div>
+                    <div style="flex:1">
+                      <div class="fc-title">Crop Residue Management</div>
+                      <div class="fc-desc">Turn residue into income — composting, biofuel & more</div>
+                    </div>
+                    <div class="fc-arrow" style="flex-shrink:0">›</div>
+                  </div>
                 </div>
               </div>
 
@@ -2608,6 +2886,676 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
         <!-- Toast -->
         <div class="toast" id="toast"></div>
 
+        <!-- ═══════════ S10: LIVESTOCK FORM ═══════════ -->
+        <div class="screen" id="s-livestock-form">
+          <div class="screen-header">
+            <div class="sh-row">
+              <button class="back-btn" onclick="goTo('s-home')"><span class="back-arrow">‹</span> Back</button>
+              <span style="font-size:12px;color:var(--t3);font-weight:600">Step 1 of 2</span>
+            </div>
+            <div class="sh-title">Livestock Health 🐄</div>
+            <div class="sh-sub">Describe your animal's condition for AI diagnosis</div>
+          </div>
+          <div class="scroll-area">
+            <div class="form-body">
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">🐾 Animal Type</div>
+                <div class="machine-chips" style="gap:8px">
+                  <div class="machine-chip" style="background:#FFF8E1;border-color:#FFCA28;color:#7B4000" onclick="selectChipGroup(this,'animal-chips')">🐄 Cow</div>
+                  <div class="machine-chip active" onclick="selectChipGroup(this,'animal-chips')">🐃 Buffalo</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'animal-chips')">🐐 Goat</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'animal-chips')">🐑 Sheep</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'animal-chips')">🐓 Poultry</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'animal-chips')">🐖 Pig</div>
+                </div>
+              </div>
+
+              <div class="slider-wrap">
+                <div class="slider-header">
+                  <div class="slider-title">🎂 Animal Age</div>
+                  <div class="slider-val" id="age-val">3<span> yrs</span></div>
+                </div>
+                <input type="range" min="0" max="15" value="3" oninput="updateSlider(this,'age-val',' yrs')" style="background:linear-gradient(90deg, var(--warning) 20%, rgba(0,0,0,0.1) 20%)">
+                <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--t3)">
+                  <span>Calf</span><span>Adult</span><span>Senior</span>
+                </div>
+              </div>
+
+              <div class="slider-wrap">
+                <div class="slider-header">
+                  <div class="slider-title">🌡 Body Temperature</div>
+                  <div class="slider-val" id="temp-animal-val">103<span>°F</span></div>
+                </div>
+                <input type="range" min="98" max="108" value="103" oninput="updateSlider(this,'temp-animal-val','°F')" style="background:linear-gradient(90deg, var(--warning) 50%, rgba(0,0,0,0.1) 50%)">
+                <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--t3)">
+                  <span>98°F Normal</span><span>108°F Critical</span>
+                </div>
+              </div>
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">⚠️ Symptoms Observed</div>
+                <div class="symptom-grid">
+                  <div class="symptom-chip active" onclick="toggleSymptom(this)">
+                    <span class="sc-check">✓</span> Fever
+                  </div>
+                  <div class="symptom-chip active" onclick="toggleSymptom(this)">
+                    <span class="sc-check">✓</span> Low Appetite
+                  </div>
+                  <div class="symptom-chip" onclick="toggleSymptom(this)">
+                    <span class="sc-check"></span> Nasal Discharge
+                  </div>
+                  <div class="symptom-chip" onclick="toggleSymptom(this)">
+                    <span class="sc-check"></span> Swollen Limbs
+                  </div>
+                  <div class="symptom-chip" onclick="toggleSymptom(this)">
+                    <span class="sc-check"></span> Coughing
+                  </div>
+                  <div class="symptom-chip" onclick="toggleSymptom(this)">
+                    <span class="sc-check"></span> Diarrhoea
+                  </div>
+                  <div class="symptom-chip" onclick="toggleSymptom(this)">
+                    <span class="sc-check"></span> Skin Lesions
+                  </div>
+                  <div class="symptom-chip" onclick="toggleSymptom(this)">
+                    <span class="sc-check"></span> Low Milk Yield
+                  </div>
+                </div>
+              </div>
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:10px;font-family:var(--font-h)">📸 Upload Photo (Optional)</div>
+                <div class="photo-upload-mini" onclick="goTo('s-livestock-processing')">
+                  <div class="pum-icon">🐄</div>
+                  <div class="pum-title">Add animal photo</div>
+                  <div class="pum-sub">Helps AI detect visible symptoms</div>
+                </div>
+              </div>
+
+              <button class="btn-primary" style="background:linear-gradient(135deg,#E65100,#FF9800);box-shadow:0 8px 28px rgba(230,81,0,0.3)" onclick="goTo('s-livestock-processing')">
+                🔍 Run AI Health Diagnosis
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ S11: LIVESTOCK PROCESSING ═══════════ -->
+        <div class="screen" id="s-livestock-processing">
+          <div class="status-bar dark">
+            <span class="sb-time">9:41</span>
+            <span class="sb-icons">▲ ◉ 100%</span>
+          </div>
+          <div class="processing-content">
+            <div class="processing-rings">
+              <div class="pr-ring pr-ring-1" style="border-color:rgba(255,152,0,0.3)"></div>
+              <div class="pr-ring pr-ring-2" style="border-color:rgba(255,152,0,0.2)"></div>
+              <div class="pr-ring pr-ring-3" style="border-color:rgba(255,152,0,0.15)"></div>
+              <div class="pr-center">🐄</div>
+            </div>
+            <div>
+              <div class="processing-title">Diagnosing Animal…</div>
+              <div class="processing-sub" style="margin-top:8px">AI is cross-checking symptoms<br>with veterinary disease database</div>
+            </div>
+            <div style="width:100%">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <span style="font-size:12px;color:rgba(255,255,255,0.65);font-weight:500">Analysing</span>
+                <span style="font-size:12px;color:rgba(255,255,255,0.65);font-weight:600">78%</span>
+              </div>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar"></div>
+              </div>
+            </div>
+            <div class="proc-steps" style="width:100%">
+              <div class="proc-step">
+                <div class="ps-dot done"></div>
+                <div class="ps-text">✓ Symptoms recorded</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot done"></div>
+                <div class="ps-text">✓ Breed & age profiled</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot active"></div>
+                <div class="ps-text">Running disease classification…</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot pending"></div>
+                <div class="ps-text">Generating treatment plan</div>
+              </div>
+            </div>
+            <button class="btn-ghost" style="margin-top:8px" onclick="goTo('s-livestock-result')">View Results →</button>
+          </div>
+        </div>
+
+        <!-- ═══════════ S12: LIVESTOCK RESULT ═══════════ -->
+        <div class="screen" id="s-livestock-result">
+          <div class="result-header result-hero-amber">
+            <button class="back-btn" style="color:rgba(255,255,255,0.8);margin-bottom:14px" onclick="goTo('s-livestock-form')"><span class="back-arrow">‹</span> Back</button>
+            <div class="rh-badge"><div class="rh-badge-dot" style="background:var(--warning)"></div><div class="rh-badge-txt">Diagnosis Complete</div></div>
+            <div class="rh-title">Condition Identified ⚠️</div>
+            <div class="rh-sub">4-step treatment plan ready for you</div>
+          </div>
+          <div class="scroll-area">
+            <div class="result-body">
+              <div class="result-main-card">
+                <div class="rmc-severity amber">
+                  <div class="sev-indicator amber">🦠</div>
+                  <div>
+                    <div class="sev-label amber">⚠ Moderate Severity</div>
+                    <div class="sev-name">Foot-and-Mouth Disease (FMD)</div>
+                  </div>
+                </div>
+                <div class="vital-row">
+                  <div class="vital-item">
+                    <div class="vital-label">Body Temp</div>
+                    <div class="vital-val" style="color:var(--warning)">103°F</div>
+                  </div>
+                  <div class="vital-item">
+                    <div class="vital-label">Species</div>
+                    <div class="vital-val">Buffalo</div>
+                  </div>
+                  <div class="vital-item">
+                    <div class="vital-label">Age</div>
+                    <div class="vital-val">3 Years</div>
+                  </div>
+                  <div class="vital-item">
+                    <div class="vital-label">AI Confidence</div>
+                    <div class="vital-val" style="color:var(--warning)">84%</div>
+                  </div>
+                </div>
+                <div class="confidence-bar-section">
+                  <div class="conf-header">
+                    <div class="conf-label">Confidence Score</div>
+                    <div class="conf-pct">84%</div>
+                  </div>
+                  <div class="conf-bar-bg">
+                    <div class="conf-bar-fill warning" style="width:84%"></div>
+                  </div>
+                </div>
+                <div class="solution-section">
+                  <div class="solution-title">💊 Treatment Plan</div>
+                  <div class="solution-steps">
+                    <div class="sol-step" style="border-left-color:var(--warning);background:#FFF8E1">
+                      <div class="sol-num" style="background:var(--warning)">1</div>
+                      <div class="sol-text">Isolate the animal immediately to prevent spread to other livestock</div>
+                    </div>
+                    <div class="sol-step" style="border-left-color:var(--warning);background:#FFF8E1">
+                      <div class="sol-num" style="background:var(--warning)">2</div>
+                      <div class="sol-text">Apply antiseptic solution (KMnO4 0.1%) to mouth & hoof lesions twice daily</div>
+                    </div>
+                    <div class="sol-step" style="border-left-color:var(--warning);background:#FFF8E1">
+                      <div class="sol-num" style="background:var(--warning)">3</div>
+                      <div class="sol-text">Provide soft feed & clean water. Add Vit B complex supplement</div>
+                    </div>
+                    <div class="sol-step" style="border-left-color:var(--warning);background:#FFF8E1">
+                      <div class="sol-num" style="background:var(--warning)">4</div>
+                      <div class="sol-text">Contact a veterinarian for FMD vaccine booster within 48 hours</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="result-actions">
+                <button class="ract-btn save" onclick="showToast('✓ Health report saved!')">
+                  <div class="ract-icon">💾</div>
+                  <div class="ract-label">Save Report</div>
+                </button>
+                <button class="ract-btn help" onclick="goTo('s-nearby')">
+                  <div class="ract-icon" style="font-size:22px">🐾</div>
+                  <div class="ract-label">Find Vet Nearby</div>
+                </button>
+              </div>
+              <button class="btn-secondary" style="margin-bottom:8px" onclick="goTo('s-chat')">💬 Ask AI more about FMD</button>
+              <button class="btn-secondary" onclick="goTo('s-livestock-form')">🐄 Check Another Animal</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ S13: MACHINERY FORM ═══════════ -->
+        <div class="screen" id="s-machinery-form">
+          <div class="screen-header">
+            <div class="sh-row">
+              <button class="back-btn" onclick="goTo('s-home')"><span class="back-arrow">‹</span> Back</button>
+              <span style="font-size:12px;color:var(--t3);font-weight:600">Step 1 of 2</span>
+            </div>
+            <div class="sh-title">Machinery Diagnosis 🔧</div>
+            <div class="sh-sub">Describe the issue for AI-powered repair guidance</div>
+          </div>
+          <div class="scroll-area">
+            <div class="form-body">
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">🚜 Machine Type</div>
+                <div class="machine-chips">
+                  <div class="machine-chip active" onclick="selectChipGroup(this,'machine-type')">🚜 Tractor</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'machine-type')">🌾 Harvester</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'machine-type')">💧 Pump Set</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'machine-type')">🌱 Sowing Machine</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'machine-type')">⚙️ Sprayer</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'machine-type')">🔩 Thresher</div>
+                </div>
+              </div>
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">⚙️ Problem Area</div>
+                <div class="condition-grid">
+                  <div class="cond-chip active" onclick="toggleCond(this)">Engine</div>
+                  <div class="cond-chip" onclick="toggleCond(this)">Transmission</div>
+                  <div class="cond-chip" onclick="toggleCond(this)">Hydraulics</div>
+                  <div class="cond-chip" onclick="toggleCond(this)">Electrical</div>
+                  <div class="cond-chip" onclick="toggleCond(this)">Fuel System</div>
+                  <div class="cond-chip" onclick="toggleCond(this)">Cooling</div>
+                  <div class="cond-chip" onclick="toggleCond(this)">Brakes</div>
+                  <div class="cond-chip" onclick="toggleCond(this)">Tyres</div>
+                  <div class="cond-chip" onclick="toggleCond(this)">PTO Shaft</div>
+                </div>
+              </div>
+
+              <div class="slider-wrap">
+                <div class="slider-header">
+                  <div class="slider-title">📅 Machine Age</div>
+                  <div class="slider-val" id="mach-age-val">6<span> yrs</span></div>
+                </div>
+                <input type="range" min="0" max="25" value="6" oninput="updateSlider(this,'mach-age-val',' yrs')" style="background:linear-gradient(90deg,#3949AB 24%, rgba(0,0,0,0.1) 24%)">
+                <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--t3)">
+                  <span>New</span><span>6 yrs</span><span>25+ yrs</span>
+                </div>
+              </div>
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:10px;font-family:var(--font-h)">📝 Describe the Issue</div>
+                <textarea class="input-field" style="resize:none;height:88px;line-height:1.5" placeholder="e.g. Engine starts but shuts off after 5 minutes, black smoke from exhaust…">Engine starts but stops after 5 mins. Black smoke & knocking sound.</textarea>
+              </div>
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:10px;font-family:var(--font-h)">📸 Upload Photo of Issue</div>
+                <div class="photo-upload-mini" style="border-color:rgba(63,81,181,0.25)" onclick="goTo('s-machinery-processing')">
+                  <div class="pum-icon">🔧</div>
+                  <div class="pum-title">Add machine photo</div>
+                  <div class="pum-sub">Optional — helps AI identify the fault</div>
+                </div>
+              </div>
+
+              <button class="btn-primary" style="background:linear-gradient(135deg,#1A237E,#3949AB);box-shadow:0 8px 28px rgba(57,73,171,0.35)" onclick="goTo('s-machinery-processing')">
+                🔍 Run AI Fault Diagnosis
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ S14: MACHINERY PROCESSING ═══════════ -->
+        <div class="screen" id="s-machinery-processing">
+          <div class="status-bar dark">
+            <span class="sb-time">9:41</span>
+            <span class="sb-icons">▲ ◉ 100%</span>
+          </div>
+          <div class="processing-content">
+            <div class="processing-rings">
+              <div class="pr-ring pr-ring-1" style="border-color:rgba(63,81,181,0.3)"></div>
+              <div class="pr-ring pr-ring-2" style="border-color:rgba(63,81,181,0.2)"></div>
+              <div class="pr-ring pr-ring-3" style="border-color:rgba(63,81,181,0.15)"></div>
+              <div class="pr-center">🔧</div>
+            </div>
+            <div>
+              <div class="processing-title">Diagnosing Fault…</div>
+              <div class="processing-sub" style="margin-top:8px">AI is scanning symptom patterns<br>across 10,000+ repair cases</div>
+            </div>
+            <div style="width:100%">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <span style="font-size:12px;color:rgba(255,255,255,0.65);font-weight:500">Processing</span>
+                <span style="font-size:12px;color:rgba(255,255,255,0.65);font-weight:600">71%</span>
+              </div>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar"></div>
+              </div>
+            </div>
+            <div class="proc-steps" style="width:100%">
+              <div class="proc-step">
+                <div class="ps-dot done"></div>
+                <div class="ps-text">✓ Machine type & age profiled</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot done"></div>
+                <div class="ps-text">✓ Fault area identified</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot active"></div>
+                <div class="ps-text">Matching fault patterns…</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot pending"></div>
+                <div class="ps-text">Building repair guide</div>
+              </div>
+            </div>
+            <button class="btn-ghost" style="margin-top:8px" onclick="goTo('s-machinery-result')">View Results →</button>
+          </div>
+        </div>
+
+        <!-- ═══════════ S15: MACHINERY RESULT ═══════════ -->
+        <div class="screen" id="s-machinery-result">
+          <div class="result-header result-hero-indigo">
+            <button class="back-btn" style="color:rgba(255,255,255,0.8);margin-bottom:14px" onclick="goTo('s-machinery-form')"><span class="back-arrow">‹</span> Back</button>
+            <div class="rh-badge"><div class="rh-badge-dot" style="background:#82B1FF"></div><div class="rh-badge-txt">Fault Identified</div></div>
+            <div class="rh-title">Issue Found 🔧</div>
+            <div class="rh-sub">Step-by-step repair guide generated</div>
+          </div>
+          <div class="scroll-area">
+            <div class="result-body">
+              <div class="result-main-card">
+                <div class="rmc-severity indigo">
+                  <div class="sev-indicator indigo">⚙️</div>
+                  <div>
+                    <div class="sev-label indigo">🔧 Moderate Repair</div>
+                    <div class="sev-name">Fuel Injector Blockage + Air Filter Clog</div>
+                  </div>
+                </div>
+                <div class="vital-row">
+                  <div class="vital-item">
+                    <div class="vital-label">Machine</div>
+                    <div class="vital-val">Tractor</div>
+                  </div>
+                  <div class="vital-item">
+                    <div class="vital-label">Age</div>
+                    <div class="vital-val">6 Years</div>
+                  </div>
+                  <div class="vital-item">
+                    <div class="vital-label">Est. Cost</div>
+                    <div class="vital-val" style="color:#3949AB">₹1,200</div>
+                  </div>
+                  <div class="vital-item">
+                    <div class="vital-label">Confidence</div>
+                    <div class="vital-val" style="color:#3949AB">91%</div>
+                  </div>
+                </div>
+                <div class="confidence-bar-section">
+                  <div class="conf-header">
+                    <div class="conf-label">Diagnosis Confidence</div>
+                    <div class="conf-pct high" style="color:#3949AB">91%</div>
+                  </div>
+                  <div class="conf-bar-bg">
+                    <div class="conf-bar-fill" style="width:91%;background:linear-gradient(90deg,#3949AB,#7986CB)"></div>
+                  </div>
+                </div>
+                <div class="solution-section">
+                  <div class="solution-title">🛠 Repair Steps</div>
+                  <div class="solution-steps">
+                    <div class="repair-step">
+                      <div class="repair-num">1</div>
+                      <div class="sol-text">Turn off engine. Remove air filter — clean or replace if heavily clogged (₹200–400)</div>
+                    </div>
+                    <div class="repair-step">
+                      <div class="repair-num">2</div>
+                      <div class="sol-text">Drain fuel tank fully. Check for water contamination. Refill with clean diesel</div>
+                    </div>
+                    <div class="repair-step">
+                      <div class="repair-num">3</div>
+                      <div class="sol-text">Remove & clean fuel injectors with injector cleaner solution (₹350–600)</div>
+                    </div>
+                    <div class="repair-step">
+                      <div class="repair-num">4</div>
+                      <div class="sol-text">Start engine at low RPM for 5 min. If smoke persists, consult a mechanic</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="result-actions">
+                <button class="ract-btn save" onclick="showToast('✓ Repair guide saved!')">
+                  <div class="ract-icon">💾</div>
+                  <div class="ract-label">Save Guide</div>
+                </button>
+                <button class="ract-btn help" style="background:linear-gradient(135deg,#1A237E,#3949AB);box-shadow:0 8px 24px rgba(57,73,171,0.3)" onclick="goTo('s-nearby')">
+                  <div class="ract-icon" style="font-size:22px">🔧</div>
+                  <div class="ract-label">Find Mechanic</div>
+                </button>
+              </div>
+              <button class="btn-secondary" style="margin-bottom:8px" onclick="goTo('s-chat')">💬 Ask AI more about this fault</button>
+              <button class="btn-secondary" onclick="goTo('s-machinery-form')">🔍 Diagnose Another Issue</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ S16: RESIDUE FORM ═══════════ -->
+        <div class="screen" id="s-residue-form">
+          <div class="screen-header">
+            <div class="sh-row">
+              <button class="back-btn" onclick="goTo('s-home')"><span class="back-arrow">‹</span> Back</button>
+              <span style="font-size:12px;color:var(--t3);font-weight:600">Step 1 of 2</span>
+            </div>
+            <div class="sh-title">Crop Residue ♻️</div>
+            <div class="sh-sub">Turn your post-harvest residue into income</div>
+          </div>
+          <div class="scroll-area">
+            <div class="form-body">
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">🌾 Crop Type (Harvested)</div>
+                <div class="machine-chips" style="gap:8px">
+                  <div class="machine-chip active" style="border-color:#00796B;background:#E0F2F1;color:#004D40" onclick="selectChipGroup(this,'residue-crop')">🌾 Rice / Paddy</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'residue-crop')">🌽 Maize</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'residue-crop')">🌿 Sugarcane</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'residue-crop')">🫘 Soybean</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'residue-crop')">🌾 Wheat</div>
+                  <div class="machine-chip" onclick="selectChipGroup(this,'residue-crop')">🥜 Groundnut</div>
+                </div>
+              </div>
+
+              <div class="slider-wrap" style="border:1px solid rgba(0,150,136,0.15)">
+                <div class="slider-header">
+                  <div class="slider-title">⚖️ Estimated Residue Volume</div>
+                  <div class="slider-val" id="residue-vol-val" style="color:#00796B">4<span> tonnes</span></div>
+                </div>
+                <input type="range" min="1" max="20" value="4" oninput="updateSlider(this,'residue-vol-val',' tonnes')" style="background:linear-gradient(90deg,#00796B 16%, rgba(0,0,0,0.1) 16%)">
+                <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--t3)">
+                  <span>1t</span><span>10t</span><span>20t</span>
+                </div>
+              </div>
+
+              <div class="slider-wrap" style="border:1px solid rgba(0,150,136,0.15)">
+                <div class="slider-header">
+                  <div class="slider-title">📐 Field Area</div>
+                  <div class="slider-val" id="field-area-val" style="color:#00796B">2.5<span> acres</span></div>
+                </div>
+                <input type="range" min="0.5" max="20" step="0.5" value="2.5" oninput="updateSlider(this,'field-area-val',' acres')" style="background:linear-gradient(90deg,#00796B 10%, rgba(0,0,0,0.1) 10%)">
+              </div>
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">🎯 Preferred Method</div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div class="method-chip active" onclick="selectMethod(this)">
+                    <div class="mc-icon" style="background:#E0F2F1">♻️</div>
+                    <div class="method-chip-info">
+                      <div class="method-chip-title">Composting</div>
+                      <div class="method-chip-sub">Convert to organic fertilizer</div>
+                    </div>
+                    <span style="font-size:18px;color:var(--g1)">✓</span>
+                  </div>
+                  <div class="method-chip" onclick="selectMethod(this)">
+                    <div class="mc-icon" style="background:#FFF3E0">🔥</div>
+                    <div class="method-chip-info">
+                      <div class="method-chip-title">Biofuel / Biogas</div>
+                      <div class="method-chip-sub">Energy generation from biomass</div>
+                    </div>
+                    <span style="font-size:18px;color:var(--t3)">○</span>
+                  </div>
+                  <div class="method-chip" onclick="selectMethod(this)">
+                    <div class="mc-icon" style="background:#FFF8E1">💰</div>
+                    <div class="method-chip-info">
+                      <div class="method-chip-title">Sell to Industry</div>
+                      <div class="method-chip-sub">Paper mills, packaging buyers</div>
+                    </div>
+                    <span style="font-size:18px;color:var(--t3)">○</span>
+                  </div>
+                  <div class="method-chip" onclick="selectMethod(this)">
+                    <div class="mc-icon" style="background:#E8F5E9">🌱</div>
+                    <div class="method-chip-info">
+                      <div class="method-chip-title">Mulching</div>
+                      <div class="method-chip-sub">Soil moisture retention</div>
+                    </div>
+                    <span style="font-size:18px;color:var(--t3)">○</span>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn-primary" style="background:linear-gradient(135deg,#004D40,#00796B);box-shadow:0 8px 28px rgba(0,121,107,0.35)" onclick="goTo('s-residue-processing')">
+                ♻️ Get Management Plan
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ S17: RESIDUE PROCESSING ═══════════ -->
+        <div class="screen" id="s-residue-processing">
+          <div class="status-bar dark">
+            <span class="sb-time">9:41</span>
+            <span class="sb-icons">▲ ◉ 100%</span>
+          </div>
+          <div class="processing-content">
+            <div class="processing-rings">
+              <div class="pr-ring pr-ring-1" style="border-color:rgba(0,150,136,0.3)"></div>
+              <div class="pr-ring pr-ring-2" style="border-color:rgba(0,150,136,0.2)"></div>
+              <div class="pr-ring pr-ring-3" style="border-color:rgba(0,150,136,0.15)"></div>
+              <div class="pr-center">♻️</div>
+            </div>
+            <div>
+              <div class="processing-title">Planning Management…</div>
+              <div class="processing-sub" style="margin-top:8px">AI is computing the most profitable<br>residue management options for you</div>
+            </div>
+            <div style="width:100%">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <span style="font-size:12px;color:rgba(255,255,255,0.65);font-weight:500">Calculating</span>
+                <span style="font-size:12px;color:rgba(255,255,255,0.65);font-weight:600">88%</span>
+              </div>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar"></div>
+              </div>
+            </div>
+            <div class="proc-steps" style="width:100%">
+              <div class="proc-step">
+                <div class="ps-dot done"></div>
+                <div class="ps-text">✓ Crop type & volume logged</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot done"></div>
+                <div class="ps-text">✓ Local market prices fetched</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot active"></div>
+                <div class="ps-text">Calculating earnings estimate…</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot pending"></div>
+                <div class="ps-text">Generating step-by-step plan</div>
+              </div>
+            </div>
+            <button class="btn-ghost" style="margin-top:8px" onclick="goTo('s-residue-result')">View Results →</button>
+          </div>
+        </div>
+
+        <!-- ═══════════ S18: RESIDUE RESULT ═══════════ -->
+        <div class="screen" id="s-residue-result">
+          <div class="result-header result-hero-teal">
+            <button class="back-btn" style="color:rgba(255,255,255,0.8);margin-bottom:14px" onclick="goTo('s-residue-form')"><span class="back-arrow">‹</span> Back</button>
+            <div class="rh-badge"><div class="rh-badge-dot" style="background:#80CBC4"></div><div class="rh-badge-txt">Plan Ready</div></div>
+            <div class="rh-title">Best Option Found ♻️</div>
+            <div class="rh-sub">Maximise earnings from your 4 tonnes of rice straw</div>
+          </div>
+          <div class="scroll-area">
+            <div class="result-body">
+
+              <div class="earnings-card">
+                <div class="earn-icon">💰</div>
+                <div>
+                  <div class="earn-label">Estimated Earnings</div>
+                  <div class="earn-amount">₹4,800 – ₹6,200</div>
+                  <div class="earn-sub">From 4 tonnes · Composting + Partial Sale</div>
+                </div>
+              </div>
+
+              <div class="result-main-card">
+                <div class="rmc-severity teal">
+                  <div class="sev-indicator teal">♻️</div>
+                  <div>
+                    <div class="sev-label teal">✓ Best Match</div>
+                    <div class="sev-name">Composting + Sell Surplus (Hybrid)</div>
+                  </div>
+                </div>
+                <div class="vital-row">
+                  <div class="vital-item">
+                    <div class="vital-label">Crop</div>
+                    <div class="vital-val">Rice Straw</div>
+                  </div>
+                  <div class="vital-item">
+                    <div class="vital-label">Volume</div>
+                    <div class="vital-val">4 Tonnes</div>
+                  </div>
+                  <div class="vital-item">
+                    <div class="vital-label">Duration</div>
+                    <div class="vital-val">45 Days</div>
+                  </div>
+                  <div class="vital-item">
+                    <div class="vital-label">Confidence</div>
+                    <div class="vital-val" style="color:#00796B">96%</div>
+                  </div>
+                </div>
+                <div class="confidence-bar-section">
+                  <div class="conf-header">
+                    <div class="conf-label">Plan Optimality Score</div>
+                    <div class="conf-pct high" style="color:#00796B">96%</div>
+                  </div>
+                  <div class="conf-bar-bg">
+                    <div class="conf-bar-fill" style="width:96%;background:linear-gradient(90deg,#00796B,#4DB6AC)"></div>
+                  </div>
+                </div>
+                <div class="solution-section">
+                  <div class="solution-title">📋 Step-by-Step Plan</div>
+                  <div class="solution-steps">
+                    <div class="sol-step" style="border-left-color:#00796B;background:#E0F2F1">
+                      <div class="sol-num" style="background:#00796B">1</div>
+                      <div class="sol-text">Collect 60% of straw (2.4t) in windrows. Mix with cow dung & water (ratio 4:1)</div>
+                    </div>
+                    <div class="sol-step" style="border-left-color:#00796B;background:#E0F2F1">
+                      <div class="sol-num" style="background:#00796B">2</div>
+                      <div class="sol-text">Cover heap with polythene sheet. Turn every 10 days. Compost ready in 45 days</div>
+                    </div>
+                    <div class="sol-step" style="border-left-color:#00796B;background:#E0F2F1">
+                      <div class="sol-num" style="background:#00796B">3</div>
+                      <div class="sol-text">Sell remaining 40% (1.6t) to nearby paper mill or packaging unit @ ₹1,800–2,400/tonne</div>
+                    </div>
+                    <div class="sol-step" style="border-left-color:#00796B;background:#E0F2F1">
+                      <div class="sol-num" style="background:#00796B">4</div>
+                      <div class="sol-text">Apply finished compost to next crop. Save ₹1,200+ on chemical fertilizer costs</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="alt-crops" style="background:white">
+                <div class="alt-title">🔄 Other Options Considered</div>
+                <div class="alt-list">
+                  <div class="alt-item" style="background:#FFF3E0;color:#E65100">🔥 Biofuel <span style="font-size:10px;color:var(--t3)">(89%)</span></div>
+                  <div class="alt-item" style="background:#E8F5E9;color:var(--g1)">🌱 Mulching <span style="font-size:10px;color:var(--t3)">(82%)</span></div>
+                  <div class="alt-item" style="background:#FFF8E1;color:#7B4000">🐄 Cattle Feed <span style="font-size:10px;color:var(--t3)">(74%)</span></div>
+                </div>
+              </div>
+
+              <div class="result-actions">
+                <button class="ract-btn save" onclick="showToast('✓ Plan saved to My Plans')">
+                  <div class="ract-icon">💾</div>
+                  <div class="ract-label">Save Plan</div>
+                </button>
+                <button class="ract-btn help" style="background:linear-gradient(135deg,#004D40,#00796B);box-shadow:0 8px 24px rgba(0,121,107,0.3)" onclick="goTo('s-nearby')">
+                  <div class="ract-icon" style="font-size:22px">🏪</div>
+                  <div class="ract-label">Find Buyers</div>
+                </button>
+              </div>
+              <button class="btn-secondary" style="margin-bottom:8px;border-color:rgba(0,150,136,0.25);color:#00796B;background:#E0F2F1" onclick="goTo('s-chat')">💬 Ask AI about composting</button>
+              <button class="btn-secondary" onclick="goTo('s-residue-form')">♻️ Plan Another Crop</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toast -->
+        <div class="toast" id="toast"></div>
+
       </div><!-- /phone-screen -->
     </div><!-- /phone-shell -->
   </div><!-- /phone-wrap -->
@@ -2633,14 +3581,17 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
     </div>
 
     <div class="info-card">
-      <div class="ic-title">Screens (9 Total)</div>
+      <div class="ic-title">Screens (15 Total)</div>
       <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> Splash Screen</div>
       <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> Home Dashboard</div>
       <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> Disease Flow (3)</div>
       <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> AI Chat Screen</div>
       <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> Crop Rec. (2)</div>
       <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> Nearby Services</div>
-      <div class="ic-badge">✦ All screens clickable</div>
+      <div class="ic-item"><div class="ic-dot" style="background:var(--warning)"></div> Livestock (3)</div>
+      <div class="ic-item"><div class="ic-dot" style="background:#3949AB"></div> Machinery (3)</div>
+      <div class="ic-item"><div class="ic-dot" style="background:#00796B"></div> Residue (3)</div>
+      <div class="ic-badge">✦ All 15 screens clickable</div>
     </div>
 
     <div class="info-card">
@@ -2654,7 +3605,7 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
       <div class="dc-txt">
         <strong>AgroBrain360</strong><br>
         Production-ready prototype<br>
-        9 screens · Full prototype flow<br>
+        15 screens · Full prototype flow<br>
         Apple-level polish
       </div>
     </div>
@@ -2698,23 +3649,38 @@ function goTo(id, navBtn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   if (navBtn) { navBtn.classList.add('active'); return; }
   const map = {
-    's-splash':         0,
-    's-home':           1,
-    's-disease-upload': 2,
-    's-processing':     3,
-    's-result':         4,
-    's-chat':           5,
-    's-crop-form':      6,
-    's-crop-result':    7,
-    's-nearby':         8
+    's-splash':               0,
+    's-home':                 1,
+    's-disease-upload':       2,
+    's-processing':           3,
+    's-result':               4,
+    's-chat':                 5,
+    's-crop-form':            6,
+    's-crop-result':          7,
+    's-nearby':               8,
+    's-livestock-form':       9,
+    's-livestock-processing': 9,
+    's-livestock-result':     10,
+    's-machinery-form':       11,
+    's-machinery-processing': 11,
+    's-machinery-result':     12,
+    's-residue-form':         13,
+    's-residue-processing':   13,
+    's-residue-result':       14
   };
   const btns = document.querySelectorAll('.nav-btn');
   if (map[id] !== undefined) btns[map[id]].classList.add('active');
 
-  // Auto-advance processing screen
-  if (id === 's-processing') {
+  // Auto-advance processing screens
+  const processingMap = {
+    's-processing':           's-result',
+    's-livestock-processing': 's-livestock-result',
+    's-machinery-processing': 's-machinery-result',
+    's-residue-processing':   's-residue-result'
+  };
+  if (processingMap[id]) {
     setTimeout(() => {
-      if (currentScreen === 's-processing') goTo('s-result');
+      if (currentScreen === id) goTo(processingMap[id]);
     }, 3500);
   }
 }
@@ -2742,6 +3708,37 @@ function switchLang(el) {
 function selectSoil(el) {
   document.querySelectorAll('.soil-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
+}
+
+// ─── GENERIC CHIP GROUP ───
+function selectChipGroup(el, group) {
+  el.closest('.machine-chips, .soil-chips').querySelectorAll('.machine-chip,.soil-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── SYMPTOM TOGGLE ───
+function toggleSymptom(el) {
+  el.classList.toggle('active');
+  const check = el.querySelector('.sc-check');
+  if (check) check.textContent = el.classList.contains('active') ? '✓' : '';
+}
+
+// ─── CONDITION CHIP TOGGLE ───
+function toggleCond(el) {
+  el.classList.toggle('active');
+}
+
+// ─── RESIDUE METHOD SELECT ───
+function selectMethod(el) {
+  const all = el.closest('.card').querySelectorAll('.method-chip');
+  all.forEach(c => {
+    c.classList.remove('active');
+    const span = c.querySelector('span');
+    if (span) span.textContent = '○';
+  });
+  el.classList.add('active');
+  const span = el.querySelector('span');
+  if (span) span.textContent = '✓';
 }
 
 // ─── FILTER TOGGLE ───
