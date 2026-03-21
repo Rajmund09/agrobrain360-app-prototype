@@ -2149,6 +2149,679 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 .vol-num { font-family: var(--font-h); font-size: 36px; font-weight: 800; color: #00695C; }
 .vol-unit { font-size: 13px; color: #00897B; font-weight: 500; }
 
+/* ════════════════════════════════════
+   AUTH SCREENS CSS
+════════════════════════════════════ */
+
+/* ── Onboarding ── */
+#s-onboarding {
+  background: var(--white);
+  overflow: hidden;
+}
+
+.ob-slides {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.ob-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 32px;
+  opacity: 0;
+  transform: translateX(60px);
+  transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.ob-slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: all;
+}
+.ob-slide.exit {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+
+.ob-illustration {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ob-art {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.ob-art-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 0 0 60% 60% / 0 0 30% 30%;
+}
+
+.ob-emoji-main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  font-size: 90px;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.12));
+  animation: float-emoji 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes float-emoji {
+  0%, 100% { transform: translate(-50%, -55%) translateY(0); }
+  50% { transform: translate(-50%, -55%) translateY(-12px); }
+}
+
+.ob-emoji-small {
+  position: absolute;
+  font-size: 36px;
+  animation: float-emoji 2.5s ease-in-out infinite;
+  z-index: 2;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+.ob-orb {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.18;
+}
+
+.ob-text {
+  text-align: center;
+  padding: 0 28px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.ob-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+}
+
+.ob-title {
+  font-family: var(--font-h);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--t1);
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+}
+.ob-title span { color: var(--g1); }
+
+.ob-desc {
+  font-size: 14px;
+  color: var(--t2);
+  line-height: 1.65;
+  font-weight: 400;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Dot indicators */
+.ob-footer {
+  background: white;
+  padding: 20px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(0,0,0,0.04);
+}
+
+.ob-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ob-dot {
+  height: 6px;
+  border-radius: 100px;
+  background: rgba(0,0,0,0.12);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+}
+.ob-dot.active {
+  width: 28px;
+  background: var(--g1);
+}
+.ob-dot:not(.active) { width: 6px; }
+
+.ob-skip {
+  position: absolute;
+  top: 52px;
+  right: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t2);
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 100px;
+  background: rgba(0,0,0,0.04);
+  transition: all 0.2s;
+  z-index: 10;
+  border: none;
+  font-family: var(--font-b);
+}
+.ob-skip:hover { background: rgba(0,0,0,0.08); }
+
+/* ── Login ── */
+#s-login {
+  background: var(--white);
+}
+
+.auth-header {
+  padding: 56px 24px 24px;
+  flex-shrink: 0;
+}
+
+.auth-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.auth-logo-icon {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--g1), var(--g3));
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  box-shadow: var(--sh-g);
+}
+.auth-logo-name {
+  font-family: var(--font-h);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--t1);
+}
+.auth-logo-name span { color: var(--g1); }
+
+.auth-title {
+  font-family: var(--font-h);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--t1);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+.auth-sub {
+  font-size: 14px;
+  color: var(--t2);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.auth-body {
+  flex: 1;
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.auth-body::-webkit-scrollbar { display: none; }
+
+/* Phone input with country code */
+.phone-input-wrap {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.country-code-btn {
+  flex-shrink: 0;
+  padding: 14px 14px;
+  background: white;
+  border: 1.5px solid rgba(0,0,0,0.1);
+  border-radius: var(--r-md);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--t1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-b);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.country-code-btn:hover { border-color: var(--g1); }
+.cc-flag { font-size: 18px; }
+.cc-code { font-size: 14px; color: var(--t2); }
+.cc-arrow { font-size: 10px; color: var(--t3); }
+
+/* Social divider */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0;
+}
+.auth-divider-line { flex: 1; height: 1px; background: rgba(0,0,0,0.08); }
+.auth-divider-txt { font-size: 12px; color: var(--t3); font-weight: 500; }
+
+/* Social login buttons */
+.social-btn {
+  width: 100%;
+  padding: 14px 20px;
+  background: white;
+  border: 1.5px solid rgba(0,0,0,0.10);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--t1);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-b);
+  box-shadow: var(--sh1);
+}
+.social-btn:hover { box-shadow: var(--sh2); border-color: rgba(0,0,0,0.18); transform: translateY(-1px); }
+.social-btn:active { transform: scale(0.97); box-shadow: var(--sh1); }
+.social-icon { font-size: 20px; }
+
+.social-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.auth-footer-link {
+  text-align: center;
+  font-size: 13px;
+  color: var(--t2);
+  padding-bottom: 12px;
+}
+.auth-footer-link a {
+  color: var(--g1);
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+}
+.auth-footer-link a:hover { text-decoration: underline; }
+
+/* Trust badges */
+.trust-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px 0 4px;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--t3);
+  font-weight: 500;
+}
+
+/* ── OTP Screen ── */
+#s-otp {
+  background: var(--white);
+}
+
+.otp-phone-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--g-light);
+  border-radius: 100px;
+  padding: 8px 16px;
+  margin-top: 10px;
+}
+.otp-phone-num { font-size: 14px; font-weight: 700; color: var(--g1); }
+.otp-change { font-size: 12px; color: var(--t2); cursor: pointer; font-weight: 500; }
+.otp-change:hover { color: var(--g1); }
+
+/* 6-digit boxes */
+.otp-boxes {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 8px 0;
+}
+
+.otp-box {
+  width: 48px;
+  height: 58px;
+  background: var(--bg);
+  border: 2px solid rgba(0,0,0,0.08);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-h);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--t1);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.otp-box.filled {
+  background: var(--g-tint);
+  border-color: var(--g1);
+  color: var(--g1);
+}
+
+.otp-box.active-box {
+  border-color: var(--g1);
+  box-shadow: 0 0 0 3px rgba(46,125,50,0.15);
+  background: white;
+}
+
+.otp-cursor {
+  display: none;
+  width: 2px;
+  height: 28px;
+  background: var(--g1);
+  border-radius: 2px;
+  animation: cursor-blink 1s ease-in-out infinite;
+}
+.otp-box.active-box .otp-cursor { display: block; }
+.otp-box.active-box .otp-cursor.has-val { display: none; }
+.otp-box.active-box .otp-val { display: none; }
+.otp-box.active-box.has-val .otp-cursor { display: none; }
+.otp-box.active-box.has-val .otp-val { display: block; }
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.otp-timer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+.otp-timer { font-size: 13px; color: var(--t2); font-weight: 500; display: flex; align-items: center; gap: 6px; }
+.otp-timer-num { font-family: var(--font-h); font-size: 16px; font-weight: 700; color: var(--g1); }
+.otp-resend { font-size: 13px; font-weight: 700; color: var(--t3); cursor: pointer; transition: color 0.2s; }
+.otp-resend.active { color: var(--g1); }
+.otp-resend.active:hover { text-decoration: underline; }
+
+/* OTP keypad */
+.otp-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.kp-key {
+  height: 58px;
+  background: white;
+  border: 1.5px solid rgba(0,0,0,0.07);
+  border-radius: var(--r-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: var(--sh1);
+}
+.kp-key:hover { background: var(--g-light); border-color: rgba(46,125,50,0.2); }
+.kp-key:active { transform: scale(0.92); background: var(--g-tint); }
+.kp-key.backspace { background: var(--bg); }
+.kp-key.backspace:hover { background: #FFEBEE; border-color: rgba(229,57,53,0.2); }
+
+.kp-num {
+  font-family: var(--font-h);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--t1);
+  line-height: 1;
+}
+.kp-alpha {
+  font-size: 9px;
+  color: var(--t3);
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 1px;
+}
+.kp-del { font-size: 22px; }
+
+/* ── Register ── */
+#s-register { background: var(--white); }
+
+/* Avatar picker */
+.avatar-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0 4px;
+}
+.avatar-ring {
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g-tint), var(--g-light));
+  border: 3px solid rgba(46,125,50,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 44px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  box-shadow: var(--sh2);
+}
+.avatar-ring:hover { border-color: var(--g1); transform: scale(1.05); }
+.avatar-camera-badge {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 26px; height: 26px;
+  background: var(--g1);
+  border-radius: 50%;
+  border: 2.5px solid white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+}
+.avatar-caption { font-size: 12px; color: var(--t2); font-weight: 500; }
+
+/* Terms row */
+.terms-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 4px 0;
+}
+.terms-checkbox {
+  width: 20px; height: 20px;
+  border-radius: 6px;
+  border: 2px solid rgba(0,0,0,0.15);
+  background: white;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  transition: all 0.2s;
+  margin-top: 1px;
+}
+.terms-checkbox.checked {
+  background: var(--g1);
+  border-color: var(--g1);
+  color: white;
+}
+.terms-text { font-size: 12px; color: var(--t2); line-height: 1.5; }
+.terms-text a { color: var(--g1); font-weight: 600; cursor: pointer; }
+
+/* ── Profile Setup ── */
+#s-profile-setup { background: var(--bg); }
+
+.profile-header {
+  background: linear-gradient(160deg, var(--g-deep), var(--g1));
+  padding: 56px 24px 32px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.profile-header::after {
+  content: '';
+  position: absolute;
+  bottom: -30px; left: 0; right: 0;
+  height: 60px;
+  background: var(--bg);
+  border-radius: 28px 28px 0 0;
+}
+
+.ph-step-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+  position: relative; z-index: 2;
+}
+.ph-step-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  transition: all 0.3s;
+}
+.ph-step-dot.done { background: white; }
+.ph-step-dot.active { width: 24px; border-radius: 100px; background: var(--gold); }
+.ph-step-line { flex: 1; height: 1px; background: rgba(255,255,255,0.15); }
+
+.ph-welcome {
+  font-family: var(--font-h);
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  position: relative; z-index: 2;
+}
+.ph-title {
+  font-family: var(--font-h);
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.4px;
+  position: relative; z-index: 2;
+}
+.ph-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 4px;
+  position: relative; z-index: 2;
+}
+
+/* Avatar upload in profile */
+.profile-avatar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  border-radius: var(--r-xl);
+  padding: 18px;
+  box-shadow: var(--sh1);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.pa-ring {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--g-tint);
+  border: 3px solid rgba(46,125,50,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.pa-ring:hover { border-color: var(--g1); }
+.pa-cam {
+  position: absolute;
+  bottom: -2px; right: -2px;
+  width: 22px; height: 22px;
+  background: var(--g1);
+  border-radius: 50%;
+  border: 2px solid white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+}
+.pa-info { flex: 1; }
+.pa-name-val { font-family: var(--font-h); font-size: 16px; font-weight: 700; color: var(--t1); }
+.pa-phone-val { font-size: 12px; color: var(--t2); margin-top: 2px; }
+.pa-edit { font-size: 12px; font-weight: 700; color: var(--g1); margin-top: 4px; cursor: pointer; }
+
+/* Farm size tiles */
+.farm-size-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.fs-tile {
+  padding: 12px 8px;
+  background: var(--bg);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: var(--r-md);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.fs-tile:hover { border-color: var(--g1); }
+.fs-tile.active { background: var(--g-tint); border-color: var(--g1); }
+.fs-icon { font-size: 22px; display: block; margin-bottom: 4px; }
+.fs-label { font-size: 11px; font-weight: 700; color: var(--t2); }
+.fs-tile.active .fs-label { color: var(--g1); }
+.fs-sub { font-size: 10px; color: var(--t3); margin-top: 1px; }
+
+/* Progress step bar */
+.setup-progress {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 4px 0 16px;
+}
+.sp-step {
+  flex: 1;
+  height: 4px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 100px;
+  overflow: hidden;
+  margin: 0 2px;
+}
+.sp-fill {
+  height: 100%;
+  background: var(--g1);
+  border-radius: 100px;
+  transition: width 0.6s ease;
+}
+
 /* ─── TOAST ─── */
 .toast {
   position: absolute;
@@ -2181,11 +2854,32 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 
   <!-- ─── NAV PANEL ─── -->
   <div class="nav-panel">
-    <div class="nav-title">Screens</div>
+    <div class="nav-title">Auth Flow</div>
     <div class="nav-btn active" onclick="goTo('s-splash', this)">
       <span class="nav-btn-label">✦ Splash</span>
-      <span class="nav-btn-sub">Welcome screen</span>
+      <span class="nav-btn-sub">Boot screen</span>
     </div>
+    <div class="nav-btn" onclick="goTo('s-onboarding', this)">
+      <span class="nav-btn-label">🎯 Onboarding</span>
+      <span class="nav-btn-sub">3-slide intro</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-login', this)">
+      <span class="nav-btn-label">🔐 Login</span>
+      <span class="nav-btn-sub">Phone number</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-otp', this)">
+      <span class="nav-btn-label">🔢 OTP Verify</span>
+      <span class="nav-btn-sub">6-digit code</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-register', this)">
+      <span class="nav-btn-label">📝 Register</span>
+      <span class="nav-btn-sub">New account</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-profile-setup', this)">
+      <span class="nav-btn-label">👤 Profile Setup</span>
+      <span class="nav-btn-sub">Farm details</span>
+    </div>
+    <div class="nav-title" style="margin-top:6px">App Screens</div>
     <div class="nav-btn" onclick="goTo('s-home', this)">
       <span class="nav-btn-label">⌂ Dashboard</span>
       <span class="nav-btn-sub">Home screen</span>
@@ -2251,6 +2945,383 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
       <div class="phone-screen">
         <div class="notch"></div>
 
+        <!-- ═══════════ AUTH: ONBOARDING ═══════════ -->
+        <div class="screen" id="s-onboarding">
+          <div class="status-bar" style="position:relative;z-index:10">
+            <span class="sb-time">9:41</span>
+            <span class="sb-icons">▲ ◉ 100%</span>
+          </div>
+          <button class="ob-skip" onclick="goTo('s-login')">Skip</button>
+
+          <div class="ob-slides">
+            <!-- Slide 1 -->
+            <div class="ob-slide active" id="ob-slide-0">
+              <div class="ob-illustration">
+                <div class="ob-art">
+                  <div class="ob-art-bg" style="background:linear-gradient(160deg,#E8F5E9 0%,#F1F8F2 100%)"></div>
+                  <div class="ob-orb" style="width:200px;height:200px;background:var(--g1);top:10%;left:10%"></div>
+                  <div class="ob-orb" style="width:140px;height:140px;background:var(--gold);bottom:5%;right:5%"></div>
+                  <div class="ob-emoji-main">🌾</div>
+                  <span class="ob-emoji-small" style="top:20%;left:14%;animation-delay:0.3s">🌱</span>
+                  <span class="ob-emoji-small" style="top:18%;right:12%;animation-delay:0.7s">☀️</span>
+                  <span class="ob-emoji-small" style="bottom:25%;left:10%;font-size:28px;animation-delay:1.1s">🌿</span>
+                  <span class="ob-emoji-small" style="bottom:22%;right:8%;font-size:28px;animation-delay:0.5s">💧</span>
+                </div>
+              </div>
+              <div class="ob-text">
+                <div class="ob-badge" style="background:#E8F5E9;color:var(--g1)">
+                  <span>🌾</span> Smart Farming
+                </div>
+                <div class="ob-title">Your Farm's<br><span>AI Partner</span></div>
+                <div class="ob-desc">Get instant AI-powered advice for crops, livestock, and machinery — right on your phone.</div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="ob-slide" id="ob-slide-1">
+              <div class="ob-illustration">
+                <div class="ob-art">
+                  <div class="ob-art-bg" style="background:linear-gradient(160deg,#FFF8E1 0%,#FFFDE7 100%)"></div>
+                  <div class="ob-orb" style="width:220px;height:220px;background:var(--gold);top:5%;left:15%;opacity:0.15"></div>
+                  <div class="ob-emoji-main" style="animation-delay:0.2s">🔬</div>
+                  <span class="ob-emoji-small" style="top:22%;left:12%;animation-delay:0.4s">🐄</span>
+                  <span class="ob-emoji-small" style="top:16%;right:10%;animation-delay:0.8s">🔧</span>
+                  <span class="ob-emoji-small" style="bottom:28%;left:8%;font-size:28px;animation-delay:1.2s">💬</span>
+                  <span class="ob-emoji-small" style="bottom:20%;right:12%;font-size:28px;animation-delay:0.6s">📍</span>
+                </div>
+              </div>
+              <div class="ob-text">
+                <div class="ob-badge" style="background:#FFF8E1;color:#7B4000">
+                  <span>🔬</span> AI Detection
+                </div>
+                <div class="ob-title">Detect Diseases<br><span style="color:var(--gold-dark)">In Seconds</span></div>
+                <div class="ob-desc">Upload a photo and our AI identifies crop diseases, animal health issues, and machine faults instantly.</div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="ob-slide" id="ob-slide-2">
+              <div class="ob-illustration">
+                <div class="ob-art">
+                  <div class="ob-art-bg" style="background:linear-gradient(160deg,#E3F2FD 0%,#EDE7F6 100%)"></div>
+                  <div class="ob-orb" style="width:180px;height:180px;background:#1565C0;top:8%;right:5%;opacity:0.1"></div>
+                  <div class="ob-emoji-main" style="animation-delay:0.1s">🌍</div>
+                  <span class="ob-emoji-small" style="top:20%;left:10%;animation-delay:0.35s">🇮🇳</span>
+                  <span class="ob-emoji-small" style="top:18%;right:8%;animation-delay:0.75s">💰</span>
+                  <span class="ob-emoji-small" style="bottom:26%;left:6%;font-size:28px;animation-delay:1s">📊</span>
+                  <span class="ob-emoji-small" style="bottom:22%;right:10%;font-size:28px;animation-delay:0.55s">⭐</span>
+                </div>
+              </div>
+              <div class="ob-text">
+                <div class="ob-badge" style="background:#E3F2FD;color:#1565C0">
+                  <span>🌍</span> Multi-Language
+                </div>
+                <div class="ob-title">Works In Your<br><span style="color:#1565C0">Own Language</span></div>
+                <div class="ob-desc">Supports English, हिंदी and ଓଡ଼ିଆ. Built for every farmer, from any background.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ob-footer">
+            <div class="ob-dots">
+              <div class="ob-dot active" onclick="goToSlide(0)"></div>
+              <div class="ob-dot" onclick="goToSlide(1)"></div>
+              <div class="ob-dot" onclick="goToSlide(2)"></div>
+            </div>
+            <button class="btn-primary" id="ob-next-btn" onclick="obNext()">
+              Next →
+            </button>
+          </div>
+        </div>
+
+        <!-- ═══════════ AUTH: LOGIN ═══════════ -->
+        <div class="screen" id="s-login">
+          <div class="auth-header">
+            <div class="auth-logo-row">
+              <div class="auth-logo-icon">🌿</div>
+              <div class="auth-logo-name">Agro<span>Brain</span>360</div>
+            </div>
+            <div class="auth-title">Welcome Back 👋</div>
+            <div class="auth-sub">Login with your phone number to continue farming smarter.</div>
+          </div>
+          <div class="auth-body">
+            <div>
+              <label class="input-label">Mobile Number</label>
+              <div class="phone-input-wrap">
+                <button class="country-code-btn" onclick="showToast('🇮🇳 India +91')">
+                  <span class="cc-flag">🇮🇳</span>
+                  <span class="cc-code">+91</span>
+                  <span class="cc-arrow">▾</span>
+                </button>
+                <div style="flex:1;position:relative">
+                  <input class="input-field" type="tel" placeholder="98765 43210" id="login-phone" style="padding-left:16px" value="98765 43210">
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-primary" onclick="doLogin()" id="login-btn">
+              Send OTP →
+            </button>
+
+            <div class="trust-row">
+              <div class="trust-item">🔒 <span>Secure OTP</span></div>
+              <div class="trust-item">✓ <span>No Password</span></div>
+              <div class="trust-item">⚡ <span>Instant Login</span></div>
+            </div>
+
+            <div class="auth-divider">
+              <div class="auth-divider-line"></div>
+              <div class="auth-divider-txt">or continue with</div>
+              <div class="auth-divider-line"></div>
+            </div>
+
+            <div class="social-row">
+              <button class="social-btn" onclick="showToast('🔑 Google Sign-in…')">
+                <span class="social-icon">🌐</span> Google
+              </button>
+              <button class="social-btn" onclick="showToast('📘 Facebook Sign-in…')">
+                <span class="social-icon">📘</span> Facebook
+              </button>
+            </div>
+
+            <div class="auth-footer-link">
+              Don't have an account? <a onclick="goTo('s-register')">Register here</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ AUTH: OTP VERIFY ═══════════ -->
+        <div class="screen" id="s-otp">
+          <div class="auth-header" style="padding-bottom:16px">
+            <div class="auth-logo-row">
+              <button class="back-btn" onclick="goTo('s-login')" style="margin-right:8px"><span class="back-arrow">‹</span></button>
+              <div class="auth-logo-icon">🔒</div>
+              <div class="auth-logo-name" style="font-size:16px">Verification</div>
+            </div>
+            <div class="auth-title">Enter OTP</div>
+            <div class="auth-sub">A 6-digit code was sent to your number</div>
+            <div class="otp-phone-chip">
+              <span class="otp-phone-num">🇮🇳 +91 98765 43210</span>
+              <span style="color:var(--t3);margin:0 4px">·</span>
+              <span class="otp-change" onclick="goTo('s-login')">Change</span>
+            </div>
+          </div>
+          <div class="auth-body" style="gap:20px">
+            <div>
+              <div class="otp-boxes" id="otp-boxes">
+                <div class="otp-box active-box" id="ob0"><div class="otp-cursor"></div><span class="otp-val"></span></div>
+                <div class="otp-box" id="ob1"><span class="otp-val"></span></div>
+                <div class="otp-box" id="ob2"><span class="otp-val"></span></div>
+                <div class="otp-box" id="ob3"><span class="otp-val"></span></div>
+                <div class="otp-box" id="ob4"><span class="otp-val"></span></div>
+                <div class="otp-box" id="ob5"><span class="otp-val"></span></div>
+              </div>
+              <div class="otp-timer-row" style="margin-top:12px">
+                <div class="otp-timer">⏱ Expires in <span class="otp-timer-num" id="otp-timer">0:30</span></div>
+                <div class="otp-resend" id="otp-resend" onclick="resendOTP()">Resend OTP</div>
+              </div>
+            </div>
+
+            <button class="btn-primary" id="otp-verify-btn" onclick="verifyOTP()" style="opacity:0.45;pointer-events:none" disabled>
+              Verify & Continue →
+            </button>
+
+            <div class="otp-keypad" id="otp-keypad">
+              <div class="kp-key" onclick="kpPress('1')"><span class="kp-num">1</span></div>
+              <div class="kp-key" onclick="kpPress('2')"><span class="kp-num">2</span><span class="kp-alpha">ABC</span></div>
+              <div class="kp-key" onclick="kpPress('3')"><span class="kp-num">3</span><span class="kp-alpha">DEF</span></div>
+              <div class="kp-key" onclick="kpPress('4')"><span class="kp-num">4</span><span class="kp-alpha">GHI</span></div>
+              <div class="kp-key" onclick="kpPress('5')"><span class="kp-num">5</span><span class="kp-alpha">JKL</span></div>
+              <div class="kp-key" onclick="kpPress('6')"><span class="kp-num">6</span><span class="kp-alpha">MNO</span></div>
+              <div class="kp-key" onclick="kpPress('7')"><span class="kp-num">7</span><span class="kp-alpha">PQRS</span></div>
+              <div class="kp-key" onclick="kpPress('8')"><span class="kp-num">8</span><span class="kp-alpha">TUV</span></div>
+              <div class="kp-key" onclick="kpPress('9')"><span class="kp-num">9</span><span class="kp-alpha">WXYZ</span></div>
+              <div class="kp-key" onclick="kpPress('*')"><span class="kp-num" style="font-size:28px;color:var(--t3)">*</span></div>
+              <div class="kp-key" onclick="kpPress('0')"><span class="kp-num">0</span><span class="kp-alpha">+</span></div>
+              <div class="kp-key backspace" onclick="kpBackspace()"><span class="kp-del">⌫</span></div>
+            </div>
+
+            <div style="background:var(--g-light);border-radius:var(--r-md);padding:12px 14px;display:flex;align-items:center;gap:10px">
+              <span style="font-size:18px">💡</span>
+              <span style="font-size:12px;color:var(--t2)">Demo tip: tap any digit 6 times to auto-fill and enable verify button</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ AUTH: REGISTER ═══════════ -->
+        <div class="screen" id="s-register">
+          <div class="auth-header" style="padding-bottom:16px">
+            <div class="auth-logo-row">
+              <button class="back-btn" onclick="goTo('s-login')" style="margin-right:8px"><span class="back-arrow">‹</span></button>
+              <div class="auth-logo-icon">🌱</div>
+              <div class="auth-logo-name" style="font-size:16px">Create Account</div>
+            </div>
+            <div class="auth-title">Join AgroBrain360</div>
+            <div class="auth-sub">Create your free account and start farming smarter today.</div>
+          </div>
+          <div class="auth-body">
+            <div class="avatar-picker">
+              <div class="avatar-ring">
+                👨‍🌾
+                <div class="avatar-camera-badge">📷</div>
+              </div>
+              <div class="avatar-caption">Tap to add profile photo</div>
+            </div>
+
+            <div>
+              <label class="input-label">Full Name</label>
+              <input class="input-field" type="text" placeholder="e.g. Ramesh Kumar" value="Ramesh Kumar">
+            </div>
+
+            <div>
+              <label class="input-label">Mobile Number</label>
+              <div class="phone-input-wrap">
+                <button class="country-code-btn">
+                  <span class="cc-flag">🇮🇳</span>
+                  <span class="cc-code">+91</span>
+                  <span class="cc-arrow">▾</span>
+                </button>
+                <input class="input-field" style="flex:1" type="tel" placeholder="98765 43210" value="98765 43210">
+              </div>
+            </div>
+
+            <div>
+              <label class="input-label">State</label>
+              <select class="input-field">
+                <option>Odisha</option>
+                <option>Uttar Pradesh</option>
+                <option>Madhya Pradesh</option>
+                <option>Bihar</option>
+                <option>Rajasthan</option>
+                <option>Punjab</option>
+                <option>Maharashtra</option>
+                <option>Karnataka</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="input-label">Preferred Language</label>
+              <select class="input-field">
+                <option>English</option>
+                <option>हिंदी (Hindi)</option>
+                <option>ଓଡ଼ିଆ (Odia)</option>
+                <option>मराठी (Marathi)</option>
+                <option>ਪੰਜਾਬੀ (Punjabi)</option>
+              </select>
+            </div>
+
+            <div class="terms-row">
+              <div class="terms-checkbox checked" onclick="this.classList.toggle('checked');this.textContent=this.classList.contains('checked')?'✓':''">✓</div>
+              <div class="terms-text">I agree to the <a>Terms of Service</a> and <a>Privacy Policy</a> of AgroBrain360</div>
+            </div>
+
+            <button class="btn-primary" onclick="goTo('s-otp')">
+              Create Account →
+            </button>
+
+            <div class="auth-footer-link">
+              Already have an account? <a onclick="goTo('s-login')">Login</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ AUTH: PROFILE SETUP ═══════════ -->
+        <div class="screen" id="s-profile-setup">
+          <div class="profile-header">
+            <div class="ph-step-row">
+              <div class="ph-step-dot done"></div>
+              <div class="ph-step-line"></div>
+              <div class="ph-step-dot done"></div>
+              <div class="ph-step-line"></div>
+              <div class="ph-step-dot active"></div>
+              <div class="ph-step-line"></div>
+              <div class="ph-step-dot"></div>
+            </div>
+            <div class="ph-welcome">Step 3 of 4 · Almost there!</div>
+            <div class="ph-title">Set Up Your Profile 👨‍🌾</div>
+            <div class="ph-sub">Tell us about your farm so we can personalise your experience</div>
+          </div>
+          <div class="scroll-area">
+            <div class="form-body" style="margin-top:-24px">
+
+              <div class="profile-avatar-wrap">
+                <div class="pa-ring">
+                  👨‍🌾
+                  <div class="pa-cam">📷</div>
+                </div>
+                <div class="pa-info">
+                  <div class="pa-name-val">Ramesh Kumar</div>
+                  <div class="pa-phone-val">📞 +91 98765 43210</div>
+                  <div class="pa-edit">Edit profile photo</div>
+                </div>
+              </div>
+
+              <div class="setup-progress">
+                <div class="sp-step"><div class="sp-fill" style="width:100%"></div></div>
+                <div class="sp-step"><div class="sp-fill" style="width:100%"></div></div>
+                <div class="sp-step"><div class="sp-fill" style="width:60%"></div></div>
+                <div class="sp-step"><div class="sp-fill" style="width:0%"></div></div>
+              </div>
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">📏 Farm Size</div>
+                <div class="farm-size-grid">
+                  <div class="fs-tile" onclick="selectFarmSize(this)">
+                    <span class="fs-icon">🌱</span>
+                    <div class="fs-label">Small</div>
+                    <div class="fs-sub">Under 2 ac</div>
+                  </div>
+                  <div class="fs-tile active" onclick="selectFarmSize(this)">
+                    <span class="fs-icon">🌾</span>
+                    <div class="fs-label">Medium</div>
+                    <div class="fs-sub">2–10 acres</div>
+                  </div>
+                  <div class="fs-tile" onclick="selectFarmSize(this)">
+                    <span class="fs-icon">🏡</span>
+                    <div class="fs-label">Large</div>
+                    <div class="fs-sub">10+ acres</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">🌾 Primary Crop</div>
+                <select class="input-field">
+                  <option>Rice / Paddy</option>
+                  <option>Wheat</option>
+                  <option>Maize / Corn</option>
+                  <option>Vegetables</option>
+                  <option>Sugarcane</option>
+                  <option>Cotton</option>
+                  <option>Pulses / Lentils</option>
+                  <option>Fruits</option>
+                </select>
+              </div>
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">🐄 Do you have Livestock?</div>
+                <div class="soil-chips">
+                  <div class="soil-chip active" onclick="selectSoil(this)">Yes</div>
+                  <div class="soil-chip" onclick="selectSoil(this)">No</div>
+                </div>
+              </div>
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">📍 District / Taluk</div>
+                <div class="input-wrap">
+                  <input class="input-field" type="text" placeholder="e.g. Bhubaneswar, Odisha" value="Bhubaneswar, Odisha">
+                  <span class="input-icon">📍</span>
+                </div>
+              </div>
+
+              <button class="btn-primary" onclick="completeSetup()">
+                ✓ Complete Setup & Enter App
+              </button>
+              <div style="text-align:center;font-size:12px;color:var(--t3);padding-bottom:8px">You can update these details anytime in Settings</div>
+            </div>
+          </div>
+        </div>
+
         <!-- ═══════════ S1: SPLASH ═══════════ -->
         <div class="screen active" id="s-splash">
           <div class="status-bar dark">
@@ -2274,7 +3345,7 @@ input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
               <div class="lang-chip" onclick="setLang(this, 'ଓଡ଼ିଆ')">ଓଡ଼ିଆ</div>
             </div>
             <div class="splash-cta">
-              <button class="btn-primary" onclick="goTo('s-home')">
+              <button class="btn-primary" onclick="goTo('s-onboarding')">
                 Get Started →
               </button>
             </div>
@@ -3645,31 +4716,42 @@ function goTo(id, navBtn) {
 
   currentScreen = id;
 
+  // OTP timer reset
+  if (id === 's-otp') {
+    resetOTP();
+    startOTPTimer();
+  }
+
   // Update nav panel
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   if (navBtn) { navBtn.classList.add('active'); return; }
   const map = {
     's-splash':               0,
-    's-home':                 1,
-    's-disease-upload':       2,
-    's-processing':           3,
-    's-result':               4,
-    's-chat':                 5,
-    's-crop-form':            6,
-    's-crop-result':          7,
-    's-nearby':               8,
-    's-livestock-form':       9,
-    's-livestock-processing': 9,
-    's-livestock-result':     10,
-    's-machinery-form':       11,
-    's-machinery-processing': 11,
-    's-machinery-result':     12,
-    's-residue-form':         13,
-    's-residue-processing':   13,
-    's-residue-result':       14
+    's-onboarding':           1,
+    's-login':                2,
+    's-otp':                  3,
+    's-register':             4,
+    's-profile-setup':        5,
+    's-home':                 6,
+    's-disease-upload':       7,
+    's-processing':           7,
+    's-result':               8,
+    's-chat':                 9,
+    's-crop-form':            10,
+    's-crop-result':          11,
+    's-nearby':               12,
+    's-livestock-form':       13,
+    's-livestock-processing': 13,
+    's-livestock-result':     14,
+    's-machinery-form':       15,
+    's-machinery-processing': 15,
+    's-machinery-result':     16,
+    's-residue-form':         17,
+    's-residue-processing':   17,
+    's-residue-result':       18
   };
   const btns = document.querySelectorAll('.nav-btn');
-  if (map[id] !== undefined) btns[map[id]].classList.add('active');
+  if (map[id] !== undefined) btns[map[id]]?.classList.add('active');
 
   // Auto-advance processing screens
   const processingMap = {
@@ -3693,6 +4775,201 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
+// ══════════════════════════
+// AUTH LOGIC
+// ══════════════════════════
+
+// ── ONBOARDING ──
+let obCurrent = 0;
+const obTotal = 3;
+
+function goToSlide(idx) {
+  const slides = document.querySelectorAll('.ob-slide');
+  const dots = document.querySelectorAll('.ob-dot');
+  const btn = document.getElementById('ob-next-btn');
+
+  slides[obCurrent].classList.remove('active');
+  slides[obCurrent].classList.add('exit');
+  setTimeout(() => slides[obCurrent].classList.remove('exit'), 450);
+
+  obCurrent = idx;
+  slides[obCurrent].classList.add('active');
+
+  dots.forEach((d, i) => d.classList.toggle('active', i === obCurrent));
+  btn.textContent = obCurrent === obTotal - 1 ? 'Get Started 🚀' : 'Next →';
+}
+
+function obNext() {
+  if (obCurrent < obTotal - 1) {
+    goToSlide(obCurrent + 1);
+  } else {
+    goTo('s-login');
+  }
+}
+
+// ── LOGIN ──
+function doLogin() {
+  const btn = document.getElementById('login-btn');
+  btn.textContent = 'Sending OTP…';
+  btn.style.opacity = '0.7';
+  btn.style.pointerEvents = 'none';
+  setTimeout(() => {
+    btn.textContent = 'Send OTP →';
+    btn.style.opacity = '';
+    btn.style.pointerEvents = '';
+    goTo('s-otp');
+  }, 1200);
+}
+
+// ── OTP ──
+let otpValues = ['', '', '', '', '', ''];
+let otpActive = 0;
+let otpTimerInterval = null;
+let otpSeconds = 30;
+
+function resetOTP() {
+  otpValues = ['', '', '', '', '', ''];
+  otpActive = 0;
+  clearInterval(otpTimerInterval);
+  for (let i = 0; i < 6; i++) {
+    const box = document.getElementById('ob' + i);
+    if (!box) continue;
+    box.classList.remove('filled', 'active-box', 'has-val');
+    box.querySelector('.otp-val').textContent = '';
+  }
+  const b0 = document.getElementById('ob0');
+  if (b0) b0.classList.add('active-box');
+
+  const verifyBtn = document.getElementById('otp-verify-btn');
+  if (verifyBtn) {
+    verifyBtn.disabled = true;
+    verifyBtn.style.opacity = '0.45';
+    verifyBtn.style.pointerEvents = 'none';
+  }
+
+  const resend = document.getElementById('otp-resend');
+  if (resend) { resend.classList.remove('active'); resend.style.opacity = '0.4'; }
+}
+
+function startOTPTimer() {
+  otpSeconds = 30;
+  updateTimerDisplay();
+  clearInterval(otpTimerInterval);
+  otpTimerInterval = setInterval(() => {
+    otpSeconds--;
+    updateTimerDisplay();
+    if (otpSeconds <= 0) {
+      clearInterval(otpTimerInterval);
+      const resend = document.getElementById('otp-resend');
+      if (resend) { resend.classList.add('active'); resend.style.opacity = '1'; }
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('otp-timer');
+  if (el) el.textContent = '0:' + String(otpSeconds).padStart(2, '0');
+}
+
+function resendOTP() {
+  const resend = document.getElementById('otp-resend');
+  if (!resend || !resend.classList.contains('active')) return;
+  showToast('📱 OTP resent to +91 98765 43210');
+  resend.classList.remove('active');
+  resend.style.opacity = '0.4';
+  resetOTP();
+  startOTPTimer();
+}
+
+function kpPress(digit) {
+  if (digit === '*') return;
+  if (otpActive >= 6) return;
+
+  otpValues[otpActive] = digit;
+  const box = document.getElementById('ob' + otpActive);
+  if (box) {
+    box.classList.remove('active-box');
+    box.classList.add('filled', 'has-val');
+    box.querySelector('.otp-val').textContent = digit;
+  }
+
+  otpActive++;
+  if (otpActive < 6) {
+    const nextBox = document.getElementById('ob' + otpActive);
+    if (nextBox) nextBox.classList.add('active-box');
+  }
+
+  // Enable verify if all 6 filled
+  if (otpActive === 6) {
+    const verifyBtn = document.getElementById('otp-verify-btn');
+    if (verifyBtn) {
+      verifyBtn.disabled = false;
+      verifyBtn.style.opacity = '1';
+      verifyBtn.style.pointerEvents = 'auto';
+    }
+  }
+}
+
+function kpBackspace() {
+  if (otpActive === 0) return;
+
+  if (otpActive < 6) {
+    const curBox = document.getElementById('ob' + otpActive);
+    if (curBox) curBox.classList.remove('active-box');
+  }
+
+  otpActive--;
+  otpValues[otpActive] = '';
+  const box = document.getElementById('ob' + otpActive);
+  if (box) {
+    box.classList.remove('filled', 'has-val');
+    box.classList.add('active-box');
+    box.querySelector('.otp-val').textContent = '';
+  }
+
+  const verifyBtn = document.getElementById('otp-verify-btn');
+  if (verifyBtn) {
+    verifyBtn.disabled = true;
+    verifyBtn.style.opacity = '0.45';
+    verifyBtn.style.pointerEvents = 'none';
+  }
+}
+
+function verifyOTP() {
+  const btn = document.getElementById('otp-verify-btn');
+  btn.textContent = 'Verifying…';
+  btn.style.opacity = '0.7';
+  clearInterval(otpTimerInterval);
+  setTimeout(() => {
+    btn.textContent = 'Verify & Continue →';
+    btn.style.opacity = '1';
+    showToast('✓ OTP Verified Successfully!');
+    setTimeout(() => goTo('s-profile-setup'), 600);
+  }, 1400);
+}
+
+// ── PROFILE SETUP ──
+function selectFarmSize(el) {
+  el.closest('.farm-size-grid').querySelectorAll('.fs-tile').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function completeSetup() {
+  const btn = event.currentTarget;
+  btn.textContent = 'Setting up your farm…';
+  btn.style.opacity = '0.7';
+  setTimeout(() => {
+    btn.textContent = '✓ Complete Setup & Enter App';
+    btn.style.opacity = '1';
+    showToast('🎉 Welcome to AgroBrain360, Ramesh!');
+    setTimeout(() => goTo('s-home'), 700);
+  }, 1500);
+}
+
+// ══════════════════════════
+// EXISTING LOGIC
+// ══════════════════════════
+
 // ─── LANGUAGE ───
 function setLang(el, name) {
   document.querySelectorAll('.lang-chip').forEach(c => c.classList.remove('active'));
@@ -3706,7 +4983,7 @@ function switchLang(el) {
 
 // ─── SOIL CHIP ───
 function selectSoil(el) {
-  document.querySelectorAll('.soil-chip').forEach(c => c.classList.remove('active'));
+  el.closest('.soil-chips').querySelectorAll('.soil-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
 }
 
@@ -3756,10 +5033,10 @@ function updateSlider(el, valId, unit) {
 
 // ─── CHAT ───
 const chatResponses = {
-  'Yes, dark brown spots': 'Those dark spots confirm **Early Blight** (Alternaria solani). This is a common fungal disease. Here\'s what you should do:\n\n1️⃣ Remove infected leaves immediately\n2️⃣ Apply Mancozeb @ 2g/litre\n3️⃣ Avoid wetting foliage\n\nShould I find nearby agri-shops for fungicide? 🌿',
-  'No, just yellow': 'Uniform yellowing without spots usually means **Nitrogen deficiency**. Try:\n\n• Apply Urea fertilizer @ 5g/litre water\n• Check soil pH (ideal: 6.0–7.0)\n• Ensure proper irrigation\n\nShall I recommend the right fertilizer for your soil type? 🌱',
-  'Scan my crop photo': 'Sure! I\'ll take you to the Disease Scanner so you can upload a photo for instant AI analysis. 📷',
-  'Tell me the solution': 'Based on your description, apply **Mancozeb 75WP** fungicide every 7 days for 3 weeks. Reduce watering frequency and improve airflow between plants. Results should show in 10–14 days! 🎯',
+  'Yes, dark brown spots': 'Those dark spots confirm <strong>Early Blight</strong> (Alternaria solani). Here\'s what to do:<br><br>1️⃣ Remove infected leaves immediately<br>2️⃣ Apply Mancozeb @ 2g/litre<br>3️⃣ Avoid wetting foliage<br><br>Should I find nearby agri-shops? 🌿',
+  'No, just yellow': 'Uniform yellowing without spots usually means <strong>Nitrogen deficiency</strong>. Try:<br><br>• Apply Urea @ 5g/litre water<br>• Check soil pH (ideal 6.0–7.0)<br>• Ensure proper irrigation 🌱',
+  'Scan my crop photo': 'Sure! Taking you to the Disease Scanner now. 📷',
+  'Tell me the solution': 'Apply <strong>Mancozeb 75WP</strong> every 7 days for 3 weeks. Reduce watering and improve airflow. Results visible in 10–14 days! 🎯',
 };
 
 function addChat(msg) {
@@ -3774,21 +5051,17 @@ function addChat(msg) {
   typing.className = 'bot-typing';
   typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
   body.appendChild(typing);
-
   body.scrollTop = body.scrollHeight;
 
   setTimeout(() => {
     typing.remove();
-    const response = chatResponses[msg] || 'Great question! Let me find the best advice for you based on your location and crop type. 🌾';
+    const response = chatResponses[msg] || 'Great question! Let me find the best advice based on your location and crop. 🌾';
     const botMsg = document.createElement('div');
     botMsg.className = 'msg-wrap bot';
     botMsg.innerHTML = `<div class="msg-tag">AgroBot</div><div class="msg-bubble">${response}</div><div class="msg-time">Now</div>`;
     body.appendChild(botMsg);
     body.scrollTop = body.scrollHeight;
-
-    if (msg === 'Scan my crop photo') {
-      setTimeout(() => goTo('s-disease-upload'), 600);
-    }
+    if (msg === 'Scan my crop photo') setTimeout(() => goTo('s-disease-upload'), 600);
   }, 1200);
 }
 
@@ -3804,19 +5077,9 @@ function handleChatKey(e) {
   if (e.key === 'Enter') sendChat();
 }
 
-// Auto-start splash animations
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    const pct = document.getElementById('proc-pct');
-    if (pct) {
-      let n = 10;
-      const t = setInterval(() => {
-        n = Math.min(n + Math.random() * 6, 95);
-        pct.textContent = Math.round(n) + '%';
-        if (n >= 95) clearInterval(t);
-      }, 180);
-    }
-  }, 100);
+  // Reset onboarding slide state
+  obCurrent = 0;
 });
 </script>
 </body>
