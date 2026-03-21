@@ -1,0 +1,2826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgroBrain360 — AI Agriculture Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g1: #2E7D32;
+  --g2: #388E3C;
+  --g3: #43A047;
+  --g-deep: #1B5E20;
+  --g-tint: #E8F5E9;
+  --g-light: #F1F8F2;
+  --bg: #F8FAF9;
+  --white: #FFFFFF;
+  --gold: #D4A373;
+  --gold-bg: #FDF6EE;
+  --gold-dark: #B5854A;
+  --t1: #1A1A1A;
+  --t2: #6B7280;
+  --t3: #9CA3AF;
+  --success: #4CAF50;
+  --warning: #FF9800;
+  --error: #E53935;
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 20px;
+  --r-xl: 24px;
+  --r-2xl: 32px;
+  --sh1: 0 1px 6px rgba(0,0,0,0.06);
+  --sh2: 0 4px 16px rgba(0,0,0,0.08);
+  --sh3: 0 8px 32px rgba(0,0,0,0.10);
+  --sh-g: 0 8px 28px rgba(46,125,50,0.22);
+  --sh-gold: 0 8px 24px rgba(212,163,115,0.28);
+  --font-h: 'Outfit', sans-serif;
+  --font-b: 'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  background: linear-gradient(145deg, #0D3B12 0%, #1B5E20 35%, #2E7D32 70%, #1a4a1e 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-b);
+  overflow: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 80% 10%, rgba(212,163,115,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 500px 600px at 10% 80%, rgba(46,125,50,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ─── OUTER LAYOUT ─── */
+.studio {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  position: relative;
+  z-index: 1;
+  padding: 20px 0;
+}
+
+/* ─── SCREEN NAVIGATOR ─── */
+.nav-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 180px;
+  flex-shrink: 0;
+}
+
+.nav-title {
+  font-family: var(--font-h);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.nav-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
+.nav-btn.active { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.35); }
+
+.nav-btn-label {
+  font-family: var(--font-b);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  display: block;
+}
+.nav-btn-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.40);
+  display: block;
+  margin-top: 1px;
+}
+.nav-btn.active .nav-btn-label { color: #fff; }
+.nav-btn.active .nav-btn-sub { color: rgba(255,255,255,0.6); }
+
+/* ─── PHONE SHELL ─── */
+.phone-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.phone-shell {
+  width: 375px;
+  height: 812px;
+  background: #0a0a0a;
+  border-radius: 54px;
+  padding: 14px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.15),
+    0 40px 100px rgba(0,0,0,0.6),
+    0 0 60px rgba(46,125,50,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  position: relative;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  border-radius: 42px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Status bar */
+.status-bar {
+  height: 44px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px 0;
+  position: relative;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.status-bar.dark { background: transparent; }
+.status-bar.dark .sb-time, .status-bar.dark .sb-icons { color: #fff; }
+
+.sb-time {
+  font-family: var(--font-h);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--t1);
+}
+.sb-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--t1);
+  font-weight: 600;
+}
+
+/* Notch */
+.notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 30px;
+  background: #0a0a0a;
+  border-radius: 0 0 20px 20px;
+  z-index: 101;
+}
+
+/* ─── SCREEN SYSTEM ─── */
+.screen {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.screen.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: all;
+}
+
+.screen.exit-left {
+  opacity: 0;
+  transform: translateX(-30%);
+}
+
+/* ─── SCROLL AREA ─── */
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.scroll-area::-webkit-scrollbar { display: none; }
+
+/* ─── BACK BUTTON ─── */
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--g1);
+  cursor: pointer;
+  padding: 4px 0;
+  transition: opacity 0.15s;
+  background: none;
+  border: none;
+  font-family: var(--font-b);
+}
+.back-btn:hover { opacity: 0.7; }
+.back-arrow { font-size: 18px; }
+
+/* ─── NAV BAR ─── */
+.nav-bar {
+  padding: 12px 20px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
+  height: 80px;
+  background: var(--white);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 10px 12px;
+  flex-shrink: 0;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+}
+
+.bn-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  transition: all 0.2s;
+}
+.bn-item.active .bn-icon { color: var(--g1); }
+.bn-item.active .bn-label { color: var(--g1); font-weight: 600; }
+.bn-icon { font-size: 22px; color: var(--t3); transition: all 0.2s; }
+.bn-label { font-size: 10px; color: var(--t3); font-weight: 500; transition: all 0.2s; }
+
+/* ─── BUTTONS ─── */
+.btn-primary {
+  width: 100%;
+  padding: 17px 24px;
+  background: linear-gradient(135deg, var(--g1), var(--g3));
+  color: white;
+  border: none;
+  border-radius: var(--r-lg);
+  font-family: var(--font-h);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--sh-g);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0.2px;
+}
+.btn-primary:hover { transform: scale(1.01); box-shadow: 0 12px 36px rgba(46,125,50,0.3); }
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-secondary {
+  width: 100%;
+  padding: 15px 24px;
+  background: var(--g-tint);
+  color: var(--g1);
+  border: 1.5px solid rgba(46,125,50,0.2);
+  border-radius: var(--r-lg);
+  font-family: var(--font-h);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-secondary:active { transform: scale(0.97); background: #d8eedc; }
+
+.btn-ghost {
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.9);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--t1);
+  cursor: pointer;
+  transition: all 0.18s;
+  font-family: var(--font-b);
+  backdrop-filter: blur(10px);
+}
+.btn-ghost:active { transform: scale(0.96); }
+
+/* ─── PILL BUTTON ─── */
+.pill-btn {
+  padding: 10px 18px;
+  background: white;
+  border: 1.5px solid rgba(46,125,50,0.25);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--g1);
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+  font-family: var(--font-b);
+}
+.pill-btn:hover { background: var(--g-tint); transform: translateY(-1px); }
+.pill-btn:active { transform: scale(0.95); }
+
+/* ─── INPUT ─── */
+.input-field {
+  width: 100%;
+  padding: 14px 16px;
+  background: white;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: var(--r-md);
+  font-family: var(--font-b);
+  font-size: 15px;
+  color: var(--t1);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.input-field:focus { border-color: var(--g1); box-shadow: 0 0 0 3px rgba(46,125,50,0.1); }
+
+.input-wrap { position: relative; }
+.input-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--t2);
+  margin-bottom: 6px;
+  display: block;
+  letter-spacing: 0.3px;
+}
+.input-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+}
+
+select.input-field {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+  cursor: pointer;
+}
+
+/* ─── CARD ─── */
+.card {
+  background: white;
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh2);
+  overflow: hidden;
+}
+
+/* ─── FEATURE CARD ─── */
+.feature-card {
+  background: white;
+  border-radius: var(--r-xl);
+  padding: 20px;
+  box-shadow: var(--sh2);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.feature-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 100%);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+.feature-card:hover { transform: translateY(-3px) scale(1.01); box-shadow: var(--sh3); }
+.feature-card:hover::after { opacity: 1; }
+.feature-card:active { transform: scale(0.97); box-shadow: var(--sh1); }
+
+.fc-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.fc-title {
+  font-family: var(--font-h);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--t1);
+  line-height: 1.2;
+}
+.fc-desc {
+  font-size: 12px;
+  color: var(--t2);
+  line-height: 1.5;
+  font-weight: 400;
+}
+.fc-arrow {
+  margin-left: auto;
+  width: 28px;
+  height: 28px;
+  background: var(--g-tint);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--g1);
+  align-self: flex-end;
+}
+
+/* ─── SCREEN SPECIFIC ─── */
+
+/* ── S1: SPLASH ── */
+#s-splash {
+  background: linear-gradient(160deg, #1B5E20 0%, #2E7D32 50%, #1a5c1e 100%);
+}
+
+.splash-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 32px;
+}
+
+.splash-orb {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(212,163,115,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse-orb 3s ease-in-out infinite;
+}
+
+@keyframes pulse-orb {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+}
+
+.splash-logo-ring {
+  width: 110px;
+  height: 110px;
+  border-radius: 34px;
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 54px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+  animation: logo-pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform: scale(0);
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes logo-pop {
+  to { transform: scale(1); }
+}
+
+.splash-brand {
+  text-align: center;
+  animation: fade-up 0.7s 0.3s ease forwards;
+  opacity: 0;
+  transform: translateY(14px);
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.splash-name {
+  font-family: var(--font-h);
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.5px;
+}
+.splash-name span { color: var(--gold); }
+.splash-tagline {
+  font-size: 13px;
+  color: rgba(255,255,255,0.62);
+  margin-top: 6px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+.splash-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 100px;
+  padding: 8px 16px;
+  animation: fade-up 0.7s 0.55s ease forwards;
+  opacity: 0;
+  transform: translateY(14px);
+  position: relative;
+  z-index: 2;
+}
+.splash-badge-dot {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.splash-badge-txt {
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.splash-cta {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  animation: fade-up 0.7s 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(14px);
+}
+.splash-cta .btn-primary {
+  background: white;
+  color: var(--g1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  font-size: 17px;
+}
+
+.splash-lang {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 10px;
+  animation: fade-up 0.7s 1s ease forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.lang-chip {
+  padding: 7px 14px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+.lang-chip.active { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.5); }
+.lang-chip:hover { background: rgba(255,255,255,0.2); }
+
+/* ── S2: HOME ── */
+#s-home {
+  background: var(--bg);
+}
+
+.home-header {
+  background: linear-gradient(160deg, var(--g-deep) 0%, var(--g1) 100%);
+  padding: 56px 24px 28px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.home-header::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+
+.home-header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: -30px;
+  width: 130px;
+  height: 130px;
+  background: rgba(212,163,115,0.1);
+  border-radius: 50%;
+}
+
+.home-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.home-logo-sm {
+  font-family: var(--font-h);
+  font-size: 17px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.3px;
+}
+.home-logo-sm span { color: var(--gold); }
+
+.notif-btn {
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  position: relative;
+  transition: all 0.2s;
+}
+.notif-btn:hover { background: rgba(255,255,255,0.25); }
+.notif-dot {
+  position: absolute;
+  top: 7px; right: 7px;
+  width: 7px; height: 7px;
+  background: var(--gold);
+  border-radius: 50%;
+  border: 1.5px solid var(--g1);
+}
+
+.home-greeting { position: relative; z-index: 2; }
+.home-greeting-small {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.home-greeting-name {
+  font-family: var(--font-h);
+  font-size: 24px;
+  font-weight: 800;
+  color: white;
+  margin-top: 2px;
+  letter-spacing: -0.3px;
+}
+.home-greeting-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 4px;
+}
+
+.home-weather-chip {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  padding: 8px 14px;
+}
+.hw-icon { font-size: 16px; }
+.hw-txt { font-size: 12px; color: rgba(255,255,255,0.9); font-weight: 500; }
+.hw-divider { width: 1px; height: 12px; background: rgba(255,255,255,0.25); }
+
+.home-body { padding: 20px 20px 0; }
+
+.section-title {
+  font-family: var(--font-h);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--t1);
+  margin-bottom: 14px;
+  letter-spacing: -0.2px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.alert-card {
+  background: linear-gradient(135deg, #FFF8F0, #FFF3E0);
+  border: 1.5px solid rgba(255,152,0,0.2);
+  border-radius: var(--r-xl);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.alert-card:hover { transform: translateX(2px); }
+.alert-icon-wrap {
+  width: 44px; height: 44px;
+  background: rgba(255,152,0,0.15);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.alert-txt-title { font-size: 13px; font-weight: 700; color: #7B4000; }
+.alert-txt-sub { font-size: 11px; color: #A0600A; margin-top: 2px; }
+.alert-arrow { margin-left: auto; color: var(--warning); font-size: 14px; }
+
+.quick-tips {
+  background: white;
+  border-radius: var(--r-xl);
+  padding: 18px;
+  box-shadow: var(--sh1);
+  border: 1px solid rgba(0,0,0,0.04);
+  margin-bottom: 20px;
+}
+.qt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.qt-title { font-size: 14px; font-weight: 700; color: var(--t1); font-family: var(--font-h); }
+.qt-link { font-size: 12px; color: var(--g1); font-weight: 600; }
+.tip-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.tip-item:last-child { border-bottom: none; }
+.tip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.tip-text { font-size: 13px; color: var(--t2); line-height: 1.4; }
+
+/* ── S3: DISEASE UPLOAD ── */
+#s-disease-upload {
+  background: var(--bg);
+}
+
+.screen-header {
+  padding: 56px 24px 20px;
+  background: white;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.sh-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sh-title {
+  font-family: var(--font-h);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--t1);
+  letter-spacing: -0.4px;
+}
+.sh-sub {
+  font-size: 13px;
+  color: var(--t2);
+  margin-top: 3px;
+  line-height: 1.5;
+}
+
+.upload-zone {
+  margin: 20px;
+  background: white;
+  border: 2px dashed rgba(46,125,50,0.3);
+  border-radius: var(--r-2xl);
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: center;
+  box-shadow: var(--sh1);
+  position: relative;
+  overflow: hidden;
+}
+.upload-zone::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(46,125,50,0.03), transparent);
+  pointer-events: none;
+}
+.upload-zone:hover { border-color: var(--g1); background: var(--g-light); }
+.upload-zone:active { transform: scale(0.98); }
+
+.upload-icon {
+  width: 80px; height: 80px;
+  background: var(--g-tint);
+  border-radius: var(--r-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+}
+.upload-zone-title {
+  font-family: var(--font-h);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--t1);
+}
+.upload-zone-sub { font-size: 13px; color: var(--t2); }
+.upload-formats {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.format-chip {
+  padding: 4px 10px;
+  background: var(--g-light);
+  border-radius: 100px;
+  font-size: 11px;
+  color: var(--g1);
+  font-weight: 600;
+}
+
+.upload-options {
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.upload-option-btn {
+  background: white;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: var(--r-xl);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: var(--sh1);
+}
+.upload-option-btn:hover { border-color: var(--g1); transform: translateY(-2px); box-shadow: var(--sh2); }
+.upload-option-btn:active { transform: scale(0.96); }
+
+.uob-icon {
+  width: 52px; height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+.uob-title { font-size: 14px; font-weight: 700; color: var(--t1); font-family: var(--font-h); }
+.uob-sub { font-size: 11px; color: var(--t2); text-align: center; }
+
+.tips-section {
+  margin: 20px;
+  background: linear-gradient(135deg, #E8F5E9, #F1F8F2);
+  border-radius: var(--r-xl);
+  padding: 18px;
+  border: 1px solid rgba(46,125,50,0.12);
+}
+.tips-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--g1);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tip-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: var(--t2);
+}
+.tip-row:last-child { margin-bottom: 0; }
+
+/* ── S4: PROCESSING ── */
+#s-processing {
+  background: linear-gradient(160deg, var(--g-deep) 0%, var(--g1) 50%, #2a6e2e 100%);
+  align-items: center;
+  justify-content: center;
+}
+
+.processing-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 40px;
+  text-align: center;
+}
+
+.processing-rings {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pr-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.15);
+  animation: ring-expand 2.5s ease-in-out infinite;
+}
+.pr-ring-1 { width: 140px; height: 140px; animation-delay: 0s; }
+.pr-ring-2 { width: 110px; height: 110px; animation-delay: 0.4s; }
+.pr-ring-3 { width: 80px; height: 80px; animation-delay: 0.8s; }
+
+@keyframes ring-expand {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1); opacity: 0.3; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.pr-center {
+  width: 70px; height: 70px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255,255,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  z-index: 2;
+  animation: center-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes center-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.processing-title {
+  font-family: var(--font-h);
+  font-size: 26px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.4px;
+}
+.processing-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+}
+
+.progress-bar-wrap {
+  width: 100%;
+  background: rgba(255,255,255,0.12);
+  border-radius: 100px;
+  height: 6px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.6), white);
+  border-radius: 100px;
+  animation: progress-fill 3s ease-in-out infinite;
+}
+@keyframes progress-fill {
+  0% { width: 10%; }
+  40% { width: 65%; }
+  70% { width: 82%; }
+  95% { width: 95%; }
+  100% { width: 95%; }
+}
+
+.proc-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.proc-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.08);
+  border-radius: var(--r-md);
+  padding: 12px 16px;
+}
+.ps-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ps-dot.done { background: var(--success); }
+.ps-dot.active { background: white; animation: blink 0.8s ease-in-out infinite; }
+.ps-dot.pending { background: rgba(255,255,255,0.3); }
+.ps-text { font-size: 13px; color: rgba(255,255,255,0.85); font-weight: 500; }
+
+/* ── S5: RESULT ── */
+#s-result {
+  background: var(--bg);
+}
+
+.result-header {
+  background: linear-gradient(160deg, var(--g-deep), var(--g1));
+  padding: 56px 24px 80px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.result-header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: 0; right: 0;
+  height: 80px;
+  background: var(--bg);
+  border-radius: 32px 32px 0 0;
+}
+
+.rh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 100px;
+  padding: 6px 14px;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 2;
+}
+.rh-badge-dot { width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; }
+.rh-badge-txt { font-size: 12px; color: white; font-weight: 600; }
+
+.rh-title {
+  font-family: var(--font-h);
+  font-size: 26px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.4px;
+  position: relative;
+  z-index: 2;
+}
+.rh-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 4px;
+  position: relative;
+  z-index: 2;
+}
+
+.result-body { padding: 0 20px 24px; margin-top: -40px; }
+
+.result-main-card {
+  background: white;
+  border-radius: var(--r-2xl);
+  box-shadow: var(--sh-md);
+  overflow: hidden;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+}
+
+.rmc-severity {
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rmc-severity.warning { background: linear-gradient(135deg, #FFF8E1, #FFF3CD); }
+.rmc-severity.error { background: linear-gradient(135deg, #FFEBEE, #FFCDD2); }
+.rmc-severity.success { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
+
+.sev-indicator {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.sev-indicator.warning { background: rgba(255,152,0,0.15); }
+.sev-indicator.error { background: rgba(229,57,53,0.12); }
+.sev-indicator.success { background: rgba(76,175,80,0.12); }
+
+.sev-label { font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; }
+.sev-label.warning { color: #E65100; }
+.sev-label.error { color: var(--error); }
+.sev-label.success { color: var(--g1); }
+
+.sev-name { font-size: 15px; font-weight: 700; color: var(--t1); margin-top: 1px; font-family: var(--font-h); }
+
+.confidence-bar-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.conf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.conf-label { font-size: 12px; font-weight: 600; color: var(--t2); }
+.conf-pct {
+  font-family: var(--font-h);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--warning);
+}
+.conf-pct.high { color: var(--success); }
+
+.conf-bar-bg {
+  height: 8px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.conf-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: conf-fill 1.5s 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes conf-fill {
+  from { width: 0 !important; }
+}
+
+.conf-bar-fill.warning { background: linear-gradient(90deg, var(--warning), #FFB74D); }
+.conf-bar-fill.success { background: linear-gradient(90deg, var(--success), #81C784); }
+
+.solution-section {
+  padding: 16px 20px;
+}
+.solution-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--t1);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-h);
+}
+
+.solution-steps { display: flex; flex-direction: column; gap: 8px; }
+.sol-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--g-light);
+  border-radius: var(--r-sm);
+  border-left: 3px solid var(--g1);
+}
+.sol-num {
+  width: 22px; height: 22px;
+  background: var(--g1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+.sol-text { font-size: 12px; color: var(--t1); line-height: 1.5; font-weight: 500; }
+
+.result-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.ract-btn {
+  padding: 14px 12px;
+  border-radius: var(--r-lg);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-b);
+  transition: all 0.2s;
+}
+.ract-btn:active { transform: scale(0.95); }
+
+.ract-btn.save {
+  background: var(--g-tint);
+  border: 1.5px solid rgba(46,125,50,0.2);
+}
+.ract-btn.save .ract-icon { font-size: 22px; }
+.ract-btn.save .ract-label { font-size: 12px; font-weight: 600; color: var(--g1); }
+
+.ract-btn.help {
+  background: linear-gradient(135deg, var(--g1), var(--g3));
+  box-shadow: var(--sh-g);
+}
+.ract-btn.help .ract-icon { font-size: 22px; filter: brightness(0) invert(1); }
+.ract-btn.help .ract-label { font-size: 12px; font-weight: 600; color: white; }
+
+/* ── S6: CHAT ── */
+#s-chat {
+  background: var(--bg);
+}
+
+.chat-header {
+  background: white;
+  padding: 52px 20px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  box-shadow: var(--sh1);
+}
+
+.chat-avatar {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--g1), var(--g3));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.chat-status { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.chat-name { font-family: var(--font-h); font-size: 16px; font-weight: 700; color: var(--t1); }
+.chat-online { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--success); font-weight: 500; }
+.chat-online-dot { width: 6px; height: 6px; background: var(--success); border-radius: 50%; animation: blink 1.5s ease-in-out infinite; }
+
+.lang-toggle {
+  display: flex;
+  background: var(--bg);
+  border-radius: 100px;
+  padding: 3px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.lt-option {
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--t2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.lt-option.active { background: white; color: var(--g1); box-shadow: var(--sh-xs); }
+
+.chat-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.chat-body::-webkit-scrollbar { display: none; }
+
+.msg-wrap { display: flex; flex-direction: column; gap: 4px; max-width: 80%; }
+.msg-wrap.bot { align-self: flex-start; }
+.msg-wrap.user { align-self: flex-end; align-items: flex-end; }
+
+.msg-bubble {
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+.msg-wrap.bot .msg-bubble {
+  background: white;
+  color: var(--t1);
+  border-radius: 4px 18px 18px 18px;
+  box-shadow: var(--sh1);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.msg-wrap.user .msg-bubble {
+  background: linear-gradient(135deg, var(--g1), var(--g3));
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+  box-shadow: var(--sh-g);
+}
+
+.msg-time { font-size: 10px; color: var(--t3); font-weight: 400; padding: 0 4px; }
+
+.bot-typing {
+  align-self: flex-start;
+  background: white;
+  border-radius: 4px 18px 18px 18px;
+  padding: 14px 18px;
+  box-shadow: var(--sh1);
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.typing-dot {
+  width: 7px; height: 7px;
+  background: var(--t3);
+  border-radius: 50%;
+  animation: typing-bounce 1.4s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing-bounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+}
+
+.quick-replies {
+  padding: 10px 16px 10px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  flex-shrink: 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.quick-replies::-webkit-scrollbar { display: none; }
+
+.chat-input-bar {
+  background: white;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  padding: 10px 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.chat-input {
+  flex: 1;
+  background: var(--bg);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: 100px;
+  padding: 11px 18px;
+  font-family: var(--font-b);
+  font-size: 14px;
+  color: var(--t1);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.chat-input:focus { border-color: var(--g1); }
+.chat-input::placeholder { color: var(--t3); }
+
+.chat-send-btn {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--g1), var(--g3));
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: var(--sh-g);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.chat-send-btn:hover { transform: scale(1.08); }
+.chat-send-btn:active { transform: scale(0.93); }
+
+.chat-attach-btn {
+  width: 38px; height: 38px;
+  background: var(--bg);
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.chat-attach-btn:hover { background: var(--g-tint); }
+
+.msg-tag {
+  display: inline-block;
+  background: var(--g-tint);
+  color: var(--g1);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 100px;
+  margin-bottom: 4px;
+}
+
+/* ── S7: CROP REC FORM ── */
+#s-crop-form { background: var(--bg); }
+
+.form-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+
+.slider-wrap {
+  background: white;
+  border-radius: var(--r-xl);
+  padding: 18px;
+  box-shadow: var(--sh1);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.slider-title { font-size: 14px; font-weight: 700; color: var(--t1); font-family: var(--font-h); }
+.slider-val {
+  font-family: var(--font-h);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--g1);
+}
+.slider-val span { font-size: 12px; color: var(--t2); font-weight: 400; }
+
+input[type=range] {
+  width: 100%;
+  height: 6px;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--g1) 55%, rgba(0,0,0,0.1) 55%);
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  background: white;
+  border-radius: 50%;
+  border: 2.5px solid var(--g1);
+  box-shadow: 0 2px 8px rgba(46,125,50,0.3);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+.soil-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.soil-chip {
+  padding: 9px 15px;
+  background: var(--bg);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--t2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.soil-chip.active { background: var(--g-tint); border-color: var(--g1); color: var(--g1); }
+.soil-chip:hover { border-color: var(--g1); }
+
+/* ── S8: CROP REC RESULT ── */
+#s-crop-result { background: var(--bg); }
+
+.crop-result-hero {
+  background: linear-gradient(160deg, var(--g-deep), var(--g1));
+  padding: 56px 24px 80px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.crop-result-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: 0; right: 0;
+  height: 80px;
+  background: var(--bg);
+  border-radius: 32px 32px 0 0;
+}
+
+.crh-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  position: relative; z-index: 2;
+}
+.crh-crop {
+  font-family: var(--font-h);
+  font-size: 34px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -1px;
+  position: relative; z-index: 2;
+}
+.crh-season {
+  font-size: 14px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 4px;
+  position: relative; z-index: 2;
+}
+.crh-conf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 100px;
+  padding: 8px 16px;
+  margin-top: 14px;
+  position: relative; z-index: 2;
+}
+.crh-conf-num { font-family: var(--font-h); font-size: 20px; font-weight: 800; color: white; }
+.crh-conf-label { font-size: 12px; color: rgba(255,255,255,0.7); font-weight: 500; }
+
+.crop-result-body { padding: 0 20px 24px; margin-top: -40px; }
+
+.crop-card {
+  background: white;
+  border-radius: var(--r-2xl);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.cc-reason {
+  padding: 18px 20px;
+  background: var(--gold-bg);
+  border-bottom: 1px solid rgba(212,163,115,0.2);
+}
+.cc-reason-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold-dark);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.cc-reason-text {
+  font-size: 13px;
+  color: #7A5E3A;
+  line-height: 1.6;
+}
+
+.cc-metrics {
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+.cc-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.ccm-icon { font-size: 22px; }
+.ccm-val { font-family: var(--font-h); font-size: 14px; font-weight: 700; color: var(--t1); }
+.ccm-label { font-size: 10px; color: var(--t2); font-weight: 500; }
+
+.alt-crops {
+  background: white;
+  border-radius: var(--r-xl);
+  padding: 18px 20px;
+  box-shadow: var(--sh1);
+  border: 1px solid rgba(0,0,0,0.04);
+  margin-bottom: 14px;
+}
+.alt-title { font-size: 14px; font-weight: 700; color: var(--t1); margin-bottom: 12px; font-family: var(--font-h); }
+.alt-list { display: flex; gap: 8px; flex-wrap: wrap; }
+.alt-item {
+  padding: 8px 14px;
+  background: var(--g-light);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--g1);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── S9: NEARBY SERVICES ── */
+#s-nearby { background: var(--bg); }
+
+.map-preview {
+  margin: 16px 20px;
+  background: linear-gradient(135deg, #E8F5E9, #c8e6c9);
+  border-radius: var(--r-xl);
+  height: 150px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: var(--sh2);
+}
+
+.map-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background-image:
+    linear-gradient(rgba(46,125,50,0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46,125,50,0.3) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.map-pin {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pin-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2.5px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.pin-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: white;
+  background: rgba(0,0,0,0.5);
+  border-radius: 100px;
+  padding: 2px 5px;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+
+.map-overlay-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: white;
+  border-radius: 100px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--g1);
+  box-shadow: var(--sh2);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nearby-filters {
+  padding: 0 20px 14px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nearby-filters::-webkit-scrollbar { display: none; }
+
+.filter-chip {
+  padding: 8px 16px;
+  background: white;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--t2);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.filter-chip.active {
+  background: var(--g-tint);
+  border-color: var(--g1);
+  color: var(--g1);
+}
+
+.services-list {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 24px;
+}
+
+.service-card {
+  background: white;
+  border-radius: var(--r-xl);
+  padding: 16px 18px;
+  box-shadow: var(--sh1);
+  border: 1px solid rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.service-card:hover { box-shadow: var(--sh2); transform: translateX(2px); }
+.service-card:active { transform: scale(0.98); }
+
+.sc-icon-wrap {
+  width: 50px; height: 50px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.sc-info { flex: 1; min-width: 0; }
+.sc-name { font-family: var(--font-h); font-size: 15px; font-weight: 700; color: var(--t1); }
+.sc-meta { font-size: 12px; color: var(--t2); margin-top: 2px; display: flex; align-items: center; gap: 8px; }
+.sc-dist { display: flex; align-items: center; gap: 3px; }
+.sc-rating { display: flex; align-items: center; gap: 3px; color: var(--gold-dark); }
+.sc-type-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 100px;
+  margin-top: 4px;
+  display: inline-block;
+}
+.sc-call-btn {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--g1), var(--g3));
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: var(--sh-g);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+}
+.sc-call-btn:hover { transform: scale(1.1); }
+.sc-call-btn:active { transform: scale(0.92); }
+
+/* ─── INFO PANEL ─── */
+.info-panel {
+  width: 220px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+}
+.ic-title {
+  font-family: var(--font-h);
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.ic-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+  font-weight: 500;
+}
+.ic-item:last-child { border-bottom: none; }
+.ic-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+.ic-badge {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: rgba(212,163,115,0.15);
+  border: 1px solid rgba(212,163,115,0.3);
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 600;
+  text-align: center;
+}
+
+.design-credit {
+  margin-top: auto;
+  padding: 12px;
+  text-align: center;
+}
+.dc-txt {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.6;
+}
+.dc-txt strong { color: rgba(255,255,255,0.6); font-weight: 600; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .info-panel { display: none; }
+  .nav-panel { width: 160px; }
+  body { padding: 10px; }
+}
+@media (max-width: 640px) {
+  .studio { gap: 20px; flex-direction: column; align-items: center; }
+  .nav-panel { width: 100%; flex-direction: row; flex-wrap: wrap; gap: 4px; }
+  .nav-btn { flex: 1; min-width: 120px; }
+  .phone-shell { width: 350px; height: 760px; border-radius: 48px; }
+  .phone-screen { border-radius: 36px; }
+}
+
+/* ─── SCROLLBAR ─── */
+.scroll-area::-webkit-scrollbar { display: none; }
+
+/* ─── STAGGERED ENTRY ANIMATION ─── */
+.stagger-in > * {
+  animation: stagger-item 0.5s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+}
+.stagger-in > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-in > *:nth-child(2) { animation-delay: 0.12s; }
+.stagger-in > *:nth-child(3) { animation-delay: 0.19s; }
+.stagger-in > *:nth-child(4) { animation-delay: 0.26s; }
+.stagger-in > *:nth-child(5) { animation-delay: 0.33s; }
+.stagger-in > *:nth-child(6) { animation-delay: 0.40s; }
+
+@keyframes stagger-item {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── TOAST ─── */
+.toast {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--t1);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: var(--sh3);
+  opacity: 0;
+  transition: all 0.3s;
+  pointer-events: none;
+  z-index: 999;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+</style>
+</head>
+<body>
+
+<div class="studio">
+
+  <!-- ─── NAV PANEL ─── -->
+  <div class="nav-panel">
+    <div class="nav-title">Screens</div>
+    <div class="nav-btn active" onclick="goTo('s-splash', this)">
+      <span class="nav-btn-label">✦ Splash</span>
+      <span class="nav-btn-sub">Welcome screen</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-home', this)">
+      <span class="nav-btn-label">⌂ Dashboard</span>
+      <span class="nav-btn-sub">Home screen</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-disease-upload', this)">
+      <span class="nav-btn-label">📷 Disease: Upload</span>
+      <span class="nav-btn-sub">Image capture</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-processing', this)">
+      <span class="nav-btn-label">⟳ Processing</span>
+      <span class="nav-btn-sub">AI analyzing</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-result', this)">
+      <span class="nav-btn-label">◎ Result</span>
+      <span class="nav-btn-sub">Disease report</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-chat', this)">
+      <span class="nav-btn-label">💬 AI Chat</span>
+      <span class="nav-btn-sub">Bot assistant</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-crop-form', this)">
+      <span class="nav-btn-label">🌱 Crop Rec.</span>
+      <span class="nav-btn-sub">Form inputs</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-crop-result', this)">
+      <span class="nav-btn-label">✓ Crop Result</span>
+      <span class="nav-btn-sub">Recommendation</span>
+    </div>
+    <div class="nav-btn" onclick="goTo('s-nearby', this)">
+      <span class="nav-btn-label">📍 Nearby</span>
+      <span class="nav-btn-sub">Services map</span>
+    </div>
+  </div>
+
+  <!-- ─── PHONE ─── -->
+  <div class="phone-wrap">
+    <div class="phone-shell">
+      <div class="phone-screen">
+        <div class="notch"></div>
+
+        <!-- ═══════════ S1: SPLASH ═══════════ -->
+        <div class="screen active" id="s-splash">
+          <div class="status-bar dark">
+            <span class="sb-time">9:41</span>
+            <span class="sb-icons">▲ ◉ 100%</span>
+          </div>
+          <div class="splash-orb"></div>
+          <div class="splash-content">
+            <div class="splash-logo-ring">🌿</div>
+            <div class="splash-brand">
+              <div class="splash-name">Agro<span>Brain</span>360</div>
+              <div class="splash-tagline">AI-Powered Agriculture Intelligence</div>
+            </div>
+            <div class="splash-badge">
+              <div class="splash-badge-dot"></div>
+              <div class="splash-badge-txt">AI Models Ready</div>
+            </div>
+            <div class="splash-lang">
+              <div class="lang-chip active">English</div>
+              <div class="lang-chip" onclick="setLang(this, 'हिंदी')">हिंदी</div>
+              <div class="lang-chip" onclick="setLang(this, 'ଓଡ଼ିଆ')">ଓଡ଼ିଆ</div>
+            </div>
+            <div class="splash-cta">
+              <button class="btn-primary" onclick="goTo('s-home')">
+                Get Started →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ S2: HOME ═══════════ -->
+        <div class="screen" id="s-home">
+          <div class="status-bar dark">
+            <span class="sb-time">9:41</span>
+            <span class="sb-icons">▲ ◉ 100%</span>
+          </div>
+          <div class="home-header">
+            <div class="home-top-bar">
+              <div class="home-logo-sm">Agro<span>Brain</span>360</div>
+              <button class="notif-btn">🔔<div class="notif-dot"></div></button>
+            </div>
+            <div class="home-greeting">
+              <div class="home-greeting-small">☀️ Good Morning,</div>
+              <div class="home-greeting-name">Ramesh Kumar</div>
+              <div class="home-greeting-sub">Farmer · Odisha, India</div>
+              <div class="home-weather-chip">
+                <span class="hw-icon">🌤</span>
+                <span class="hw-txt">29°C · Humid</span>
+                <div class="hw-divider"></div>
+                <span class="hw-txt">Good conditions</span>
+              </div>
+            </div>
+          </div>
+          <div class="scroll-area">
+            <div class="home-body">
+              <div class="alert-card">
+                <div class="alert-icon-wrap">⚠️</div>
+                <div>
+                  <div class="alert-txt-title">Early Blight Risk Detected</div>
+                  <div class="alert-txt-sub">Your region — act before Thursday</div>
+                </div>
+                <div class="alert-arrow">›</div>
+              </div>
+
+              <div class="section-title">What do you need?</div>
+              <div class="features-grid stagger-in">
+                <div class="feature-card" onclick="goTo('s-disease-upload')">
+                  <div class="fc-icon-wrap" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9)">🌾</div>
+                  <div class="fc-title">Crop Disease Detection</div>
+                  <div class="fc-desc">Scan any leaf for instant AI diagnosis</div>
+                  <div class="fc-arrow">›</div>
+                </div>
+                <div class="feature-card" onclick="goTo('s-crop-form')">
+                  <div class="fc-icon-wrap" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB)">🌱</div>
+                  <div class="fc-title">Crop Recommendation</div>
+                  <div class="fc-desc">Best crops for your soil & climate</div>
+                  <div class="fc-arrow">›</div>
+                </div>
+                <div class="feature-card" onclick="goTo('s-chat')">
+                  <div class="fc-icon-wrap" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7)">💬</div>
+                  <div class="fc-title">AI Chat Assistant</div>
+                  <div class="fc-desc">Ask anything in your language</div>
+                  <div class="fc-arrow">›</div>
+                </div>
+                <div class="feature-card" onclick="goTo('s-nearby')">
+                  <div class="fc-icon-wrap" style="background:linear-gradient(135deg,#FFF3E0,#FFE0B2)">📍</div>
+                  <div class="fc-title">Nearby Services</div>
+                  <div class="fc-desc">Shops, vets & mechanics near you</div>
+                  <div class="fc-arrow">›</div>
+                </div>
+              </div>
+
+              <div class="quick-tips">
+                <div class="qt-header">
+                  <div class="qt-title">💡 Daily Tips</div>
+                  <div class="qt-link">See all</div>
+                </div>
+                <div class="tip-item">
+                  <div class="tip-dot" style="background:#4CAF50"></div>
+                  <div class="tip-text">Water your crops early morning for less evaporation</div>
+                </div>
+                <div class="tip-item">
+                  <div class="tip-dot" style="background:#FF9800"></div>
+                  <div class="tip-text">Check soil pH before fertilizer application</div>
+                </div>
+                <div class="tip-item">
+                  <div class="tip-dot" style="background:#2196F3"></div>
+                  <div class="tip-text">Rain forecast: Wednesday evening — plan accordingly</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <div class="bn-item active" onclick="goTo('s-home')">
+              <div class="bn-icon">⌂</div>
+              <div class="bn-label">Home</div>
+            </div>
+            <div class="bn-item" onclick="goTo('s-disease-upload')">
+              <div class="bn-icon">🔍</div>
+              <div class="bn-label">Scan</div>
+            </div>
+            <div class="bn-item" onclick="goTo('s-chat')">
+              <div class="bn-icon">💬</div>
+              <div class="bn-label">Chat</div>
+            </div>
+            <div class="bn-item" onclick="goTo('s-nearby')">
+              <div class="bn-icon">📍</div>
+              <div class="bn-label">Nearby</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ S3: DISEASE UPLOAD ═══════════ -->
+        <div class="screen" id="s-disease-upload">
+          <div class="screen-header">
+            <div class="sh-row">
+              <button class="back-btn" onclick="goTo('s-home')"><span class="back-arrow">‹</span> Back</button>
+              <span style="font-size:12px;color:var(--t3);font-weight:600">Step 1 of 3</span>
+            </div>
+            <div class="sh-title">Scan Your Crop 🌾</div>
+            <div class="sh-sub">Upload or take a photo to detect diseases instantly</div>
+          </div>
+          <div class="scroll-area">
+            <div class="upload-zone" onclick="goTo('s-processing')">
+              <div class="upload-icon">📸</div>
+              <div class="upload-zone-title">Tap to Upload Photo</div>
+              <div class="upload-zone-sub">or drag & drop your image here</div>
+              <div class="upload-formats">
+                <span class="format-chip">JPG</span>
+                <span class="format-chip">PNG</span>
+                <span class="format-chip">HEIC</span>
+                <span class="format-chip">Max 10MB</span>
+              </div>
+            </div>
+
+            <div style="padding: 0 20px 14px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                <div style="flex:1;height:1px;background:rgba(0,0,0,0.08)"></div>
+                <span style="font-size:12px;color:var(--t3);font-weight:500">or use</span>
+                <div style="flex:1;height:1px;background:rgba(0,0,0,0.08)"></div>
+              </div>
+            </div>
+
+            <div class="upload-options">
+              <div class="upload-option-btn" onclick="goTo('s-processing')">
+                <div class="uob-icon" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9)">📷</div>
+                <div class="uob-title">Camera</div>
+                <div class="uob-sub">Take a new photo now</div>
+              </div>
+              <div class="upload-option-btn" onclick="goTo('s-processing')">
+                <div class="uob-icon" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB)">🖼️</div>
+                <div class="uob-title">Gallery</div>
+                <div class="uob-sub">Pick from your photos</div>
+              </div>
+            </div>
+
+            <div class="tips-section">
+              <div class="tips-title">📌 Tips for best results</div>
+              <div class="tip-row">✓ <span>Get close to affected leaves</span></div>
+              <div class="tip-row">✓ <span>Good lighting — avoid shadows</span></div>
+              <div class="tip-row">✓ <span>Include both healthy & sick leaves</span></div>
+              <div class="tip-row">✓ <span>Avoid blurry or dark photos</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ S4: PROCESSING ═══════════ -->
+        <div class="screen" id="s-processing">
+          <div class="status-bar dark">
+            <span class="sb-time">9:41</span>
+            <span class="sb-icons">▲ ◉ 100%</span>
+          </div>
+          <div class="processing-content">
+            <div class="processing-rings">
+              <div class="pr-ring pr-ring-1"></div>
+              <div class="pr-ring pr-ring-2"></div>
+              <div class="pr-ring pr-ring-3"></div>
+              <div class="pr-center">🔬</div>
+            </div>
+            <div>
+              <div class="processing-title">Analyzing Crop…</div>
+              <div class="processing-sub" style="margin-top:8px">Our AI is examining your image<br>for diseases and deficiencies</div>
+            </div>
+            <div style="width:100%">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <span style="font-size:12px;color:rgba(255,255,255,0.65);font-weight:500">Processing</span>
+                <span style="font-size:12px;color:rgba(255,255,255,0.65);font-weight:600" id="proc-pct">82%</span>
+              </div>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar"></div>
+              </div>
+            </div>
+            <div class="proc-steps" style="width:100%">
+              <div class="proc-step">
+                <div class="ps-dot done"></div>
+                <div class="ps-text">✓ Image uploaded & verified</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot done"></div>
+                <div class="ps-text">✓ Leaf pattern extracted</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot active"></div>
+                <div class="ps-text">Running disease classification…</div>
+              </div>
+              <div class="proc-step">
+                <div class="ps-dot pending"></div>
+                <div class="ps-text">Generating solution report</div>
+              </div>
+            </div>
+            <button class="btn-ghost" style="margin-top:8px" onclick="goTo('s-result')">
+              View Results →
+            </button>
+          </div>
+        </div>
+
+        <!-- ═══════════ S5: RESULT ═══════════ -->
+        <div class="screen" id="s-result">
+          <div class="result-header">
+            <button class="back-btn" style="color:rgba(255,255,255,0.8);margin-bottom:14px" onclick="goTo('s-disease-upload')"><span class="back-arrow">‹</span> Back</button>
+            <div class="rh-badge"><div class="rh-badge-dot"></div><div class="rh-badge-txt">Analysis Complete</div></div>
+            <div class="rh-title">Disease Detected ⚠️</div>
+            <div class="rh-sub">3 solution steps recommended for you</div>
+          </div>
+          <div class="scroll-area">
+            <div class="result-body">
+              <div class="result-main-card">
+                <div class="rmc-severity warning">
+                  <div class="sev-indicator warning">🍂</div>
+                  <div>
+                    <div class="sev-label warning">⚠ Medium Severity</div>
+                    <div class="sev-name">Early Blight (Alternaria solani)</div>
+                  </div>
+                </div>
+                <div class="confidence-bar-section">
+                  <div class="conf-header">
+                    <div class="conf-label">AI Confidence Score</div>
+                    <div class="conf-pct">87%</div>
+                  </div>
+                  <div class="conf-bar-bg">
+                    <div class="conf-bar-fill warning" style="width:87%"></div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;margin-top:6px">
+                    <span style="font-size:10px;color:var(--t3)">Low</span>
+                    <span style="font-size:10px;color:var(--t3)">High</span>
+                  </div>
+                </div>
+                <div class="solution-section">
+                  <div class="solution-title">🛠 Recommended Solution</div>
+                  <div class="solution-steps">
+                    <div class="sol-step">
+                      <div class="sol-num">1</div>
+                      <div class="sol-text">Remove and dispose infected leaves immediately to prevent spread</div>
+                    </div>
+                    <div class="sol-step">
+                      <div class="sol-num">2</div>
+                      <div class="sol-text">Apply Mancozeb 75WP fungicide @ 2g/litre water, spray every 7 days</div>
+                    </div>
+                    <div class="sol-step">
+                      <div class="sol-num">3</div>
+                      <div class="sol-text">Improve air circulation between plants, avoid overhead watering</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="result-actions">
+                <button class="ract-btn save" onclick="showToast('✓ Report saved!')">
+                  <div class="ract-icon">💾</div>
+                  <div class="ract-label">Save Report</div>
+                </button>
+                <button class="ract-btn help" onclick="goTo('s-nearby')">
+                  <div class="ract-icon" style="font-size:22px">📍</div>
+                  <div class="ract-label">Get Nearby Help</div>
+                </button>
+              </div>
+              <button class="btn-secondary" style="margin-bottom:8px" onclick="goTo('s-chat')">
+                💬 Ask AI Assistant about this
+              </button>
+              <button class="btn-secondary" onclick="goTo('s-disease-upload')">
+                📷 Scan Another Crop
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ S6: CHAT ═══════════ -->
+        <div class="screen" id="s-chat">
+          <div class="chat-header">
+            <button class="back-btn" onclick="goTo('s-home')" style="margin-right:4px"><span class="back-arrow">‹</span></button>
+            <div class="chat-avatar">🤖</div>
+            <div class="chat-status">
+              <div class="chat-name">AgroBot AI</div>
+              <div class="chat-online"><div class="chat-online-dot"></div> Online · Responds instantly</div>
+            </div>
+            <div class="lang-toggle">
+              <div class="lt-option active" onclick="switchLang(this)">EN</div>
+              <div class="lt-option" onclick="switchLang(this)">हि</div>
+              <div class="lt-option" onclick="switchLang(this)">ଓ</div>
+            </div>
+          </div>
+
+          <div class="chat-body" id="chat-body">
+            <div class="msg-wrap bot">
+              <div class="msg-tag">AgroBot</div>
+              <div class="msg-bubble">👋 Hello Ramesh! I'm your AI farming assistant. I can help you with crop diseases, best practices, weather advice, and more.<br><br>What can I help you with today?</div>
+              <div class="msg-time">9:41 AM</div>
+            </div>
+            <div class="msg-wrap user">
+              <div class="msg-bubble">My tomato leaves are turning yellow</div>
+              <div class="msg-time">9:42 AM</div>
+            </div>
+            <div class="msg-wrap bot">
+              <div class="msg-bubble">Yellow leaves in tomato can have several causes. Let me help you diagnose this! 🔍<br><br>The most common reason is <strong>Nitrogen deficiency</strong> or <strong>Early Blight fungus</strong>. Do the yellow patches have dark spots in the center?</div>
+              <div class="msg-time">9:42 AM</div>
+            </div>
+          </div>
+
+          <div class="quick-replies">
+            <div class="pill-btn" onclick="addChat('Yes, dark brown spots')">Yes, dark spots ✓</div>
+            <div class="pill-btn" onclick="addChat('No, just yellow')">No, just yellow</div>
+            <div class="pill-btn" onclick="addChat('Scan my crop photo')">📷 Scan photo</div>
+            <div class="pill-btn" onclick="addChat('Tell me the solution')">Solution please</div>
+          </div>
+
+          <div class="chat-input-bar">
+            <button class="chat-attach-btn">📎</button>
+            <input class="chat-input" placeholder="Ask in your language…" id="chat-input-field" onkeypress="handleChatKey(event)">
+            <button class="chat-send-btn" onclick="sendChat()">↑</button>
+          </div>
+        </div>
+
+        <!-- ═══════════ S7: CROP FORM ═══════════ -->
+        <div class="screen" id="s-crop-form">
+          <div class="screen-header">
+            <div class="sh-row">
+              <button class="back-btn" onclick="goTo('s-home')"><span class="back-arrow">‹</span> Back</button>
+            </div>
+            <div class="sh-title">Crop Recommendation 🌱</div>
+            <div class="sh-sub">Enter your field details for personalised advice</div>
+          </div>
+          <div class="scroll-area">
+            <div class="form-body">
+
+              <div class="card" style="padding:18px;box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">🏔 Soil Type</div>
+                <div class="soil-chips" id="soil-chips">
+                  <div class="soil-chip active" onclick="selectSoil(this)">Clay</div>
+                  <div class="soil-chip" onclick="selectSoil(this)">Sandy</div>
+                  <div class="soil-chip" onclick="selectSoil(this)">Loamy</div>
+                  <div class="soil-chip" onclick="selectSoil(this)">Silty</div>
+                  <div class="soil-chip" onclick="selectSoil(this)">Black</div>
+                  <div class="soil-chip" onclick="selectSoil(this)">Red</div>
+                </div>
+              </div>
+
+              <div class="slider-wrap">
+                <div class="slider-header">
+                  <div class="slider-title">💧 Soil Moisture</div>
+                  <div class="slider-val" id="moisture-val">55<span>%</span></div>
+                </div>
+                <input type="range" min="0" max="100" value="55" oninput="updateSlider(this,'moisture-val','%')" style="background:linear-gradient(90deg, var(--g1) 55%, rgba(0,0,0,0.1) 55%)">
+                <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--t3)">
+                  <span>Dry</span><span>Optimal</span><span>Wet</span>
+                </div>
+              </div>
+
+              <div class="slider-wrap">
+                <div class="slider-header">
+                  <div class="slider-title">🌡 Temperature</div>
+                  <div class="slider-val" id="temp-val">28<span>°C</span></div>
+                </div>
+                <input type="range" min="10" max="45" value="28" oninput="updateSlider(this,'temp-val','°C')" style="background:linear-gradient(90deg, var(--g1) 49%, rgba(0,0,0,0.1) 49%)">
+                <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--t3)">
+                  <span>10°C</span><span>28°C</span><span>45°C</span>
+                </div>
+              </div>
+
+              <div style="padding:18px;background:white;border-radius:var(--r-xl);box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">🌿 Growing Season</div>
+                <select class="input-field">
+                  <option>Kharif (June–November)</option>
+                  <option>Rabi (November–April)</option>
+                  <option>Zaid (March–June)</option>
+                  <option>Year Round</option>
+                </select>
+              </div>
+
+              <div style="padding:18px;background:white;border-radius:var(--r-xl);box-shadow:var(--sh1);border:1px solid rgba(0,0,0,0.04)">
+                <div style="font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;font-family:var(--font-h)">📏 Field Area</div>
+                <div class="input-wrap">
+                  <input class="input-field" type="number" placeholder="Enter in acres" value="2.5">
+                  <span class="input-icon">ac</span>
+                </div>
+              </div>
+
+              <button class="btn-primary" onclick="goTo('s-crop-result')">
+                🌱 Get AI Recommendation
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ S8: CROP RESULT ═══════════ -->
+        <div class="screen" id="s-crop-result">
+          <div class="crop-result-hero">
+            <button class="back-btn" style="color:rgba(255,255,255,0.8);margin-bottom:14px" onclick="goTo('s-crop-form')"><span class="back-arrow">‹</span> Back</button>
+            <div class="crh-label">Top Recommendation</div>
+            <div class="crh-crop">🌾 Rice (Paddy)</div>
+            <div class="crh-season">Ideal for Kharif season · Clay soil</div>
+            <div class="crh-conf-badge">
+              <div class="crh-conf-num">94%</div>
+              <div class="crh-conf-label">AI Confidence</div>
+            </div>
+          </div>
+          <div class="scroll-area">
+            <div class="crop-result-body">
+              <div class="crop-card">
+                <div class="cc-reason">
+                  <div class="cc-reason-title">💡 Why this crop?</div>
+                  <div class="cc-reason-text">Your clay soil retains water well, matching Rice's high moisture needs. At 55% moisture and 28°C, conditions are ideal for Kharif paddy. Expected yield: <strong>4.2–5.1 tonnes/acre</strong>.</div>
+                </div>
+                <div class="cc-metrics">
+                  <div class="cc-metric">
+                    <div class="ccm-icon">💰</div>
+                    <div class="ccm-val">High</div>
+                    <div class="ccm-label">Market Value</div>
+                  </div>
+                  <div class="cc-metric">
+                    <div class="ccm-icon">💧</div>
+                    <div class="ccm-val">High</div>
+                    <div class="ccm-label">Water Need</div>
+                  </div>
+                  <div class="cc-metric">
+                    <div class="ccm-icon">📅</div>
+                    <div class="ccm-val">120d</div>
+                    <div class="ccm-label">Harvest Time</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="alt-crops">
+                <div class="alt-title">Also suitable for your field</div>
+                <div class="alt-list">
+                  <div class="alt-item">🌽 Maize <span style="font-size:10px;color:var(--t3)">(86%)</span></div>
+                  <div class="alt-item">🥬 Jute <span style="font-size:10px;color:var(--t3)">(81%)</span></div>
+                  <div class="alt-item">🥜 Groundnut <span style="font-size:10px;color:var(--t3)">(74%)</span></div>
+                </div>
+              </div>
+
+              <button class="btn-primary" style="margin-bottom:10px" onclick="showToast('✓ Plan saved to My Crops')">
+                📥 Save Crop Plan
+              </button>
+              <button class="btn-secondary" onclick="goTo('s-chat')">
+                💬 Ask AI about cultivation
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ S9: NEARBY SERVICES ═══════════ -->
+        <div class="screen" id="s-nearby">
+          <div class="screen-header">
+            <div class="sh-row">
+              <button class="back-btn" onclick="goTo('s-home')"><span class="back-arrow">‹</span> Back</button>
+              <span style="font-size:12px;color:var(--t2);font-weight:500">📍 Bhubaneswar, Odisha</span>
+            </div>
+            <div class="sh-title">Nearby Services</div>
+            <div class="sh-sub">Agri-shops, vets & mechanics within 15km</div>
+          </div>
+          <div class="scroll-area">
+            <div class="map-preview">
+              <div class="map-grid"></div>
+              <div class="map-pin" style="top:40%;left:50%;transform:translate(-50%,-50%)">
+                <div class="pin-dot" style="background:var(--g1)"></div>
+                <div class="pin-label">You</div>
+              </div>
+              <div class="map-pin" style="top:25%;left:30%">
+                <div class="pin-dot" style="background:var(--gold-dark)"></div>
+                <div class="pin-label">Shop</div>
+              </div>
+              <div class="map-pin" style="top:55%;left:65%">
+                <div class="pin-dot" style="background:#E53935"></div>
+                <div class="pin-label">Vet</div>
+              </div>
+              <div class="map-pin" style="top:30%;left:72%">
+                <div class="pin-dot" style="background:#1976D2"></div>
+                <div class="pin-label">Shop</div>
+              </div>
+              <div class="map-overlay-btn">🗺 Open Full Map</div>
+            </div>
+
+            <div class="nearby-filters">
+              <div class="filter-chip active">All</div>
+              <div class="filter-chip" onclick="filterToggle(this)">🌿 Agri-Shop</div>
+              <div class="filter-chip" onclick="filterToggle(this)">🐄 Veterinary</div>
+              <div class="filter-chip" onclick="filterToggle(this)">🔧 Mechanic</div>
+              <div class="filter-chip" onclick="filterToggle(this)">🏪 Fertilizer</div>
+            </div>
+
+            <div class="services-list">
+              <div class="service-card">
+                <div class="sc-icon-wrap" style="background:#E8F5E9">🌿</div>
+                <div class="sc-info">
+                  <div class="sc-name">Raju Agro Stores</div>
+                  <div class="sc-meta">
+                    <span class="sc-dist">📍 1.2 km</span>
+                    <span class="sc-rating">⭐ 4.8</span>
+                  </div>
+                  <span class="sc-type-badge" style="background:#E8F5E9;color:var(--g1)">Agri-Shop · Open Now</span>
+                </div>
+                <button class="sc-call-btn" onclick="showToast('📞 Calling Raju Agro…')">📞</button>
+              </div>
+
+              <div class="service-card">
+                <div class="sc-icon-wrap" style="background:#FFEBEE">🐄</div>
+                <div class="sc-info">
+                  <div class="sc-name">Dr. Priya Veterinary</div>
+                  <div class="sc-meta">
+                    <span class="sc-dist">📍 2.8 km</span>
+                    <span class="sc-rating">⭐ 4.9</span>
+                  </div>
+                  <span class="sc-type-badge" style="background:#FFEBEE;color:#C62828">Veterinary · Open Now</span>
+                </div>
+                <button class="sc-call-btn" onclick="showToast('📞 Calling Dr. Priya…')">📞</button>
+              </div>
+
+              <div class="service-card">
+                <div class="sc-icon-wrap" style="background:#E3F2FD">🔧</div>
+                <div class="sc-info">
+                  <div class="sc-name">Mahesh Tractor Works</div>
+                  <div class="sc-meta">
+                    <span class="sc-dist">📍 3.5 km</span>
+                    <span class="sc-rating">⭐ 4.6</span>
+                  </div>
+                  <span class="sc-type-badge" style="background:#E3F2FD;color:#1565C0">Mechanic · Closes 7PM</span>
+                </div>
+                <button class="sc-call-btn" onclick="showToast('📞 Calling Mahesh…')">📞</button>
+              </div>
+
+              <div class="service-card">
+                <div class="sc-icon-wrap" style="background:#FFF8E1">🌾</div>
+                <div class="sc-info">
+                  <div class="sc-name">Krishna Fertilizer Hub</div>
+                  <div class="sc-meta">
+                    <span class="sc-dist">📍 4.1 km</span>
+                    <span class="sc-rating">⭐ 4.7</span>
+                  </div>
+                  <span class="sc-type-badge" style="background:#FFF8E1;color:#E65100">Fertilizer · Open Now</span>
+                </div>
+                <button class="sc-call-btn" onclick="showToast('📞 Calling Krishna…')">📞</button>
+              </div>
+
+              <div class="service-card">
+                <div class="sc-icon-wrap" style="background:#F3E5F5">🏪</div>
+                <div class="sc-info">
+                  <div class="sc-name">Saraswati Seed Centre</div>
+                  <div class="sc-meta">
+                    <span class="sc-dist">📍 5.3 km</span>
+                    <span class="sc-rating">⭐ 4.5</span>
+                  </div>
+                  <span class="sc-type-badge" style="background:#F3E5F5;color:#6A1B9A">Seed Store · Open Now</span>
+                </div>
+                <button class="sc-call-btn" onclick="showToast('📞 Calling Saraswati…')">📞</button>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-nav">
+            <div class="bn-item" onclick="goTo('s-home')">
+              <div class="bn-icon">⌂</div>
+              <div class="bn-label">Home</div>
+            </div>
+            <div class="bn-item" onclick="goTo('s-disease-upload')">
+              <div class="bn-icon">🔍</div>
+              <div class="bn-label">Scan</div>
+            </div>
+            <div class="bn-item" onclick="goTo('s-chat')">
+              <div class="bn-icon">💬</div>
+              <div class="bn-label">Chat</div>
+            </div>
+            <div class="bn-item active">
+              <div class="bn-icon">📍</div>
+              <div class="bn-label">Nearby</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toast -->
+        <div class="toast" id="toast"></div>
+
+      </div><!-- /phone-screen -->
+    </div><!-- /phone-shell -->
+  </div><!-- /phone-wrap -->
+
+  <!-- ─── INFO PANEL ─── -->
+  <div class="info-panel">
+    <div class="info-card">
+      <div class="ic-title">Design System</div>
+      <div class="ic-item"><div class="ic-dot" style="background:#2E7D32"></div> Primary #2E7D32</div>
+      <div class="ic-item"><div class="ic-dot" style="background:#F8FAF9;border:1px solid rgba(255,255,255,0.3)"></div> BG #F8FAF9</div>
+      <div class="ic-item"><div class="ic-dot" style="background:#D4A373"></div> Accent #D4A373</div>
+      <div class="ic-item"><div class="ic-dot" style="background:#4CAF50"></div> Success #4CAF50</div>
+      <div class="ic-item"><div class="ic-dot" style="background:#FF9800"></div> Warning #FF9800</div>
+      <div class="ic-item"><div class="ic-dot" style="background:#E53935"></div> Error #E53935</div>
+    </div>
+
+    <div class="info-card">
+      <div class="ic-title">Typography</div>
+      <div class="ic-item">Outfit — Display/Headings</div>
+      <div class="ic-item">DM Sans — Body/UI</div>
+      <div class="ic-item">16–24px radius system</div>
+      <div class="ic-item">8px spacing grid</div>
+    </div>
+
+    <div class="info-card">
+      <div class="ic-title">Screens (9 Total)</div>
+      <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> Splash Screen</div>
+      <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> Home Dashboard</div>
+      <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> Disease Flow (3)</div>
+      <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> AI Chat Screen</div>
+      <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> Crop Rec. (2)</div>
+      <div class="ic-item"><div class="ic-dot" style="background:var(--success)"></div> Nearby Services</div>
+      <div class="ic-badge">✦ All screens clickable</div>
+    </div>
+
+    <div class="info-card">
+      <div class="ic-title">Languages</div>
+      <div class="ic-item">🇬🇧 English</div>
+      <div class="ic-item">🇮🇳 हिंदी (Hindi)</div>
+      <div class="ic-item">🌐 ଓଡ଼ିଆ (Odia)</div>
+    </div>
+
+    <div class="design-credit">
+      <div class="dc-txt">
+        <strong>AgroBrain360</strong><br>
+        Production-ready prototype<br>
+        9 screens · Full prototype flow<br>
+        Apple-level polish
+      </div>
+    </div>
+  </div>
+
+</div><!-- /studio -->
+
+<script>
+// ─── SCREEN NAVIGATION ───
+let currentScreen = 's-splash';
+
+function goTo(id, navBtn) {
+  if (id === currentScreen) return;
+
+  const prev = document.getElementById(currentScreen);
+  const next = document.getElementById(id);
+  if (!next) return;
+
+  prev.classList.remove('active');
+  prev.classList.add('exit-left');
+
+  next.classList.add('active');
+  next.style.transform = 'translateX(100%)';
+  next.style.opacity = '0';
+
+  setTimeout(() => {
+    next.style.transition = 'opacity 0.38s cubic-bezier(0.4,0,0.2,1), transform 0.38s cubic-bezier(0.4,0,0.2,1)';
+    next.style.transform = '';
+    next.style.opacity = '';
+  }, 10);
+
+  setTimeout(() => {
+    prev.classList.remove('exit-left');
+    prev.style.transform = '';
+    prev.style.opacity = '';
+  }, 420);
+
+  currentScreen = id;
+
+  // Update nav panel
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  if (navBtn) { navBtn.classList.add('active'); return; }
+  const map = {
+    's-splash':         0,
+    's-home':           1,
+    's-disease-upload': 2,
+    's-processing':     3,
+    's-result':         4,
+    's-chat':           5,
+    's-crop-form':      6,
+    's-crop-result':    7,
+    's-nearby':         8
+  };
+  const btns = document.querySelectorAll('.nav-btn');
+  if (map[id] !== undefined) btns[map[id]].classList.add('active');
+
+  // Auto-advance processing screen
+  if (id === 's-processing') {
+    setTimeout(() => {
+      if (currentScreen === 's-processing') goTo('s-result');
+    }, 3500);
+  }
+}
+
+// ─── TOAST ───
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ─── LANGUAGE ───
+function setLang(el, name) {
+  document.querySelectorAll('.lang-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function switchLang(el) {
+  document.querySelectorAll('.lt-option').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── SOIL CHIP ───
+function selectSoil(el) {
+  document.querySelectorAll('.soil-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── FILTER TOGGLE ───
+function filterToggle(el) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── SLIDER ───
+function updateSlider(el, valId, unit) {
+  document.getElementById(valId).innerHTML = el.value + '<span>' + unit + '</span>';
+  const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
+  el.style.background = `linear-gradient(90deg, var(--g1) ${pct}%, rgba(0,0,0,0.1) ${pct}%)`;
+}
+
+// ─── CHAT ───
+const chatResponses = {
+  'Yes, dark brown spots': 'Those dark spots confirm **Early Blight** (Alternaria solani). This is a common fungal disease. Here\'s what you should do:\n\n1️⃣ Remove infected leaves immediately\n2️⃣ Apply Mancozeb @ 2g/litre\n3️⃣ Avoid wetting foliage\n\nShould I find nearby agri-shops for fungicide? 🌿',
+  'No, just yellow': 'Uniform yellowing without spots usually means **Nitrogen deficiency**. Try:\n\n• Apply Urea fertilizer @ 5g/litre water\n• Check soil pH (ideal: 6.0–7.0)\n• Ensure proper irrigation\n\nShall I recommend the right fertilizer for your soil type? 🌱',
+  'Scan my crop photo': 'Sure! I\'ll take you to the Disease Scanner so you can upload a photo for instant AI analysis. 📷',
+  'Tell me the solution': 'Based on your description, apply **Mancozeb 75WP** fungicide every 7 days for 3 weeks. Reduce watering frequency and improve airflow between plants. Results should show in 10–14 days! 🎯',
+};
+
+function addChat(msg) {
+  const body = document.getElementById('chat-body');
+
+  const userMsg = document.createElement('div');
+  userMsg.className = 'msg-wrap user';
+  userMsg.innerHTML = `<div class="msg-bubble">${msg}</div><div class="msg-time">Now</div>`;
+  body.appendChild(userMsg);
+
+  const typing = document.createElement('div');
+  typing.className = 'bot-typing';
+  typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  body.appendChild(typing);
+
+  body.scrollTop = body.scrollHeight;
+
+  setTimeout(() => {
+    typing.remove();
+    const response = chatResponses[msg] || 'Great question! Let me find the best advice for you based on your location and crop type. 🌾';
+    const botMsg = document.createElement('div');
+    botMsg.className = 'msg-wrap bot';
+    botMsg.innerHTML = `<div class="msg-tag">AgroBot</div><div class="msg-bubble">${response}</div><div class="msg-time">Now</div>`;
+    body.appendChild(botMsg);
+    body.scrollTop = body.scrollHeight;
+
+    if (msg === 'Scan my crop photo') {
+      setTimeout(() => goTo('s-disease-upload'), 600);
+    }
+  }, 1200);
+}
+
+function sendChat() {
+  const input = document.getElementById('chat-input-field');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  addChat(msg);
+}
+
+function handleChatKey(e) {
+  if (e.key === 'Enter') sendChat();
+}
+
+// Auto-start splash animations
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const pct = document.getElementById('proc-pct');
+    if (pct) {
+      let n = 10;
+      const t = setInterval(() => {
+        n = Math.min(n + Math.random() * 6, 95);
+        pct.textContent = Math.round(n) + '%';
+        if (n >= 95) clearInterval(t);
+      }, 180);
+    }
+  }, 100);
+});
+</script>
+</body>
+</html>
