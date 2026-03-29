@@ -54,11 +54,13 @@
       background: linear-gradient(145deg, #0D3B12 0%, #1B5E20 35%, #2E7D32 70%, #1a4a1e 100%);
       min-height: 100vh;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       font-family: var(--font-b);
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       position: relative;
+      padding: clamp(16px, 3vw, 32px);
     }
 
     body::before {
@@ -75,10 +77,13 @@
     .studio {
       display: flex;
       align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
       gap: 40px;
+      width: min(100%, 1320px);
       position: relative;
       z-index: 1;
-      padding: 20px 0;
+      padding: 0;
     }
 
     /* ─── SCREEN NAVIGATOR ─── */
@@ -88,6 +93,7 @@
       gap: 6px;
       width: 180px;
       flex-shrink: 0;
+      align-self: stretch;
     }
 
     .nav-title {
@@ -148,11 +154,15 @@
     .phone-wrap {
       position: relative;
       flex-shrink: 0;
+      width: min(100%, 403px);
     }
 
     .phone-shell {
-      width: 375px;
-      height: 812px;
+      width: 100%;
+      max-width: 375px;
+      aspect-ratio: 375 / 812;
+      min-height: min(812px, calc(100svh - 32px));
+      height: auto;
       background: #0a0a0a;
       border-radius: 54px;
       padding: 14px;
@@ -2509,6 +2519,7 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      align-self: stretch;
     }
 
     .info-card {
@@ -2581,7 +2592,7 @@
     }
 
     /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
+    @media (max-width: 1100px) {
       .info-panel {
         display: none;
       }
@@ -2589,39 +2600,120 @@
       .nav-panel {
         width: 160px;
       }
-
-      body {
-        padding: 10px;
-      }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 900px) {
+      body {
+        padding: 16px;
+      }
+
       .studio {
-        gap: 20px;
-        flex-direction: column;
-        align-items: center;
+        gap: 24px;
       }
 
       .nav-panel {
         width: 100%;
         flex-direction: row;
-        flex-wrap: wrap;
-        gap: 4px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scrollbar-width: none;
+      }
+
+      .nav-panel::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-title {
+        width: 100%;
+        margin-bottom: 0;
       }
 
       .nav-btn {
-        flex: 1;
-        min-width: 120px;
+        min-width: 148px;
+        flex: 0 0 auto;
+      }
+
+      .phone-wrap {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .studio {
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .nav-panel {
+        gap: 8px;
+        align-self: stretch;
+      }
+
+      .nav-btn {
+        min-width: 132px;
+        padding: 10px 12px;
       }
 
       .phone-shell {
-        width: 350px;
-        height: 760px;
-        border-radius: 48px;
+        max-width: min(375px, calc(100vw - 32px));
+        min-height: auto;
+        border-radius: 42px;
+        padding: 12px;
       }
 
       .phone-screen {
-        border-radius: 36px;
+        border-radius: 32px;
+      }
+
+      .notch {
+        width: 106px;
+        height: 26px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      body {
+        padding: 10px;
+      }
+
+      .studio {
+        gap: 14px;
+      }
+
+      .nav-title {
+        font-size: 10px;
+        letter-spacing: 1.4px;
+      }
+
+      .nav-btn {
+        min-width: 124px;
+        padding: 9px 10px;
+      }
+
+      .nav-btn-label {
+        font-size: 11px;
+      }
+
+      .nav-btn-sub {
+        font-size: 9px;
+      }
+
+      .phone-wrap {
+        width: 100%;
+      }
+
+      .phone-shell {
+        max-width: calc(100vw - 20px);
+        border-radius: 34px;
+        padding: 10px;
+      }
+
+      .phone-screen {
+        border-radius: 26px;
       }
     }
 
